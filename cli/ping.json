@@ -1,0 +1,705 @@
+{
+ "schema": 1,
+ "cli": "ping",
+ "updatedAt": "2026-10-08T16:49:57",
+ "targets": {
+  "": {
+   "exe": "ping",
+   "channel": [
+    "--help"
+   ],
+   "rc": 2,
+   "grade": "full",
+   "dialect": "usage-posix",
+   "raw_sha256": "ffa24d0b4aa98defa8953a84682f061b29bc7c8f86752f903aaef49fe2c6341f",
+   "raw_bytes": 1856,
+   "raw_head": "ping: 无效的选项 -- -\n\nUsage\n  ping [options] <destination>\n\nOptions:\n  <destination>      dns name or ip address\n  -a                 use audible ping\n  -A                 use adaptive ping\n  -B                 sticky source address\n  -c <count>         stop after <count> replies\n  -D                 print timestamps\n  -d                 use SO_DEBUG socket option\n  -f                 flood ping\n  -h                 print help and exit\n  -I <interface>     either interface name or address\n  -i <interval>      seconds between sending each packet\n  -L                 suppress loopback of multicast packets\n  -l <preload>       send <preload> number of packages while waiting replies\n  -m <mark>          tag the packets going out\n  -M <pmtud opt>     define mtu discovery, can be one of <do|dont|want>\n  -n                 no dns name resolution\n  -O                 report outstanding replies\n  -p <pattern>       contents of padding byte\n  -q                 quiet output\n  -Q <tclass>        use quality of service <tclass> bits\n  -s <size>          use <size> as number of data bytes to be sent\n  -S <size>          use <size> as SO_SNDBUF socket option value\n  -t <ttl>           define time to live\n  -U                 print user-to-user latency\n  -v                 verbose output\n  -V                 print version and exit\n  -w <deadline>      reply wait <deadline> in seconds\n  -W <timeout>       time to wait for response\n\nIPv4 options:\n  -4                 use IPv4\n  -b                 allow pinging broadcast\n  -R                 record route\n  -T <timestamp>     define timestamp, can be one of <tsonly|tsandaddr|tsprespec>\n\nIPv6 options:\n  -6                 use IPv6\n  -F <flowlabel>     define flow label, default is random\n  -N <nodeinfo opt>  use icmp6 node info query, try <help> as argument\n\nFor more details see ping(8).\n",
+   "parsedAt": "2026-10-08T16:01:05",
+   "options": [
+    {
+     "names": [
+      "-a"
+     ],
+     "takes_value": false,
+     "desc": "use audible ping",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "-a",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-A"
+     ],
+     "takes_value": false,
+     "desc": "use adaptive ping",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "-A",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-B"
+     ],
+     "takes_value": false,
+     "desc": "sticky source address",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "-B",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-c"
+     ],
+     "takes_value": true,
+     "desc": "stop after <count> replies",
+     "value_token": "<count>",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "spin",
+     "widget_reason": "判为数值：取值名/描述命中数字语义（<count>）",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "-c",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-D"
+     ],
+     "takes_value": false,
+     "desc": "print timestamps",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "-D",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-d"
+     ],
+     "takes_value": false,
+     "desc": "use SO_DEBUG socket option",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "-d",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-f"
+     ],
+     "takes_value": false,
+     "desc": "flood ping",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "-f",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-h"
+     ],
+     "takes_value": false,
+     "desc": "print help and exit",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "-h",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-I"
+     ],
+     "takes_value": true,
+     "desc": "either interface name or address",
+     "value_token": "<interface>",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "path",
+     "widget_reason": "判为路径：取值名/描述命中路径语义（<interface>）",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "-I",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-i"
+     ],
+     "takes_value": true,
+     "desc": "seconds between sending each packet",
+     "value_token": "<interval>",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "spin",
+     "widget_reason": "判为数值：取值名/描述命中数字语义（<interval>）",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "-i",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-L"
+     ],
+     "takes_value": false,
+     "desc": "suppress loopback of multicast packets",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "-L",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-l"
+     ],
+     "takes_value": true,
+     "desc": "send <preload> number of packages while waiting replies",
+     "value_token": "<preload>",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "spin",
+     "widget_reason": "判为数值：取值名/描述命中数字语义（<preload>）",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "-l",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-m"
+     ],
+     "takes_value": true,
+     "desc": "tag the packets going out",
+     "value_token": "<mark>",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "spin",
+     "widget_reason": "判为数值：取值名/描述命中数字语义（<mark>）",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "-m",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-M"
+     ],
+     "takes_value": true,
+     "desc": "define mtu discovery, can be one of <do|dont|want>",
+     "value_token": "<pmtud opt>",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": [
+      "do",
+      "dont",
+      "want"
+     ],
+     "widget": "combo",
+     "widget_reason": "判为下拉：描述含 one of 且形态为 <do|dont|want>",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "-M",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-n"
+     ],
+     "takes_value": false,
+     "desc": "no dns name resolution",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "-n",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-O"
+     ],
+     "takes_value": false,
+     "desc": "report outstanding replies",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "-O",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-p"
+     ],
+     "takes_value": true,
+     "desc": "contents of padding byte",
+     "value_token": "<pattern>",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "spin",
+     "widget_reason": "判为数值：取值名/描述命中数字语义（<pattern>）",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "-p",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-q"
+     ],
+     "takes_value": false,
+     "desc": "quiet output",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "-q",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-Q"
+     ],
+     "takes_value": true,
+     "desc": "use quality of service <tclass> bits",
+     "value_token": "<tclass>",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "未确定：help 未给出足够信息，可右键改成其它控件类型",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "-Q",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-s"
+     ],
+     "takes_value": true,
+     "desc": "use <size> as number of data bytes to be sent",
+     "value_token": "<size>",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "spin",
+     "widget_reason": "判为数值：取值名/描述命中数字语义（<size>）",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "-s",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-S"
+     ],
+     "takes_value": true,
+     "desc": "use <size> as SO_SNDBUF socket option value",
+     "value_token": "<size>",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "spin",
+     "widget_reason": "判为数值：取值名/描述命中数字语义（<size>）",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "-S",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-t"
+     ],
+     "takes_value": true,
+     "desc": "define time to live",
+     "value_token": "<ttl>",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "spin",
+     "widget_reason": "判为数值：取值名/描述命中数字语义（<ttl>）",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "-t",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-U"
+     ],
+     "takes_value": false,
+     "desc": "print user-to-user latency",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "-U",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-v"
+     ],
+     "takes_value": false,
+     "desc": "verbose output",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "-v",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-V"
+     ],
+     "takes_value": false,
+     "desc": "print version and exit",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "-V",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-w"
+     ],
+     "takes_value": true,
+     "desc": "reply wait <deadline> in seconds",
+     "value_token": "<deadline>",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "spin",
+     "widget_reason": "判为数值：取值名/描述命中数字语义（<deadline>）",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "-w",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-W"
+     ],
+     "takes_value": true,
+     "desc": "time to wait for response",
+     "value_token": "<timeout>",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "spin",
+     "widget_reason": "判为数值：取值名/描述命中数字语义（<timeout>）",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "-W",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-b"
+     ],
+     "takes_value": false,
+     "desc": "allow pinging broadcast",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "-b",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-R"
+     ],
+     "takes_value": false,
+     "desc": "record route",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "-R",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-T"
+     ],
+     "takes_value": true,
+     "desc": "define timestamp, can be one of <tsonly|tsandaddr|tsprespec>",
+     "value_token": "<timestamp>",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": [
+      "tsonly",
+      "tsandaddr",
+      "tsprespec"
+     ],
+     "widget": "combo",
+     "widget_reason": "判为下拉：描述含 one of 且形态为 <tsonly|tsandaddr|tsprespec>",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "-T",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-F"
+     ],
+     "takes_value": true,
+     "desc": "define flow label, default is random",
+     "value_token": "<flowlabel>",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "未确定：help 未给出足够信息，可右键改成其它控件类型",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "-F",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-N"
+     ],
+     "takes_value": true,
+     "desc": "use icmp6 node info query, try <help> as argument",
+     "value_token": "<nodeinfo opt>",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "未确定：help 未给出足够信息，可右键改成其它控件类型",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "-N",
+     "negatable": false
+    },
+    {
+     "names": [],
+     "takes_value": true,
+     "desc": "位置参数 <destination>",
+     "value_token": "<destination>",
+     "required": "required",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "位置参数：usage 行里出现，必按顺序传",
+     "repeatable": false,
+     "group": null,
+     "position": 0,
+     "key": "@0",
+     "negatable": false
+    }
+   ],
+   "subcommands": []
+  }
+ },
+ "notes": {
+  "-c": "我常用 2；外网改 1，别超过 5",
+  "@0": "内网回环用 127.0.0.1，外网用 8.8.8.8"
+ },
+ "activeProfile": "外网五次",
+ "profiles": {
+  "默认": {
+   "note": "",
+   "createdAt": "2026-10-08T16:01:05",
+   "values": {},
+   "updatedAt": "2026-10-08T16:29:19"
+  },
+  "回环两次": {
+   "note": "",
+   "createdAt": "2026-10-08T16:01:05",
+   "values": {
+    "@0": "127.0.0.1",
+    "-c": "2"
+   },
+   "updatedAt": "2026-10-08T16:29:33"
+  },
+  "回环五次": {
+   "note": "",
+   "createdAt": "2026-10-08T16:01:05",
+   "values": {
+    "@0": "127.0.0.1",
+    "-c": "99"
+   },
+   "updatedAt": "2026-10-08T16:01:05"
+  },
+  "外网五次": {
+   "note": "",
+   "createdAt": "2026-10-08T16:01:14",
+   "values": {
+    "@0": "8.8.8.8",
+    "-c": "5"
+   },
+   "updatedAt": "2026-10-08T16:29:33"
+  },
+  "外网": {
+   "note": "",
+   "createdAt": "2026-10-08T16:29:19",
+   "values": {
+    "@0": "127.0.0.1",
+    "-c": "2"
+   },
+   "updatedAt": "2026-10-08T16:29:19"
+  }
+ }
+}

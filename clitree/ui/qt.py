@@ -1,0 +1,32 @@
+"""Qt 薄适配层：只在本文件 import Qt，日后要换 PySide6 只改这里。"""
+from PyQt5.QtCore import QSize, Qt, QTimer, pyqtSignal  # noqa: F401
+from PyQt5.QtGui import QCursor, QFont, QIcon, QPainter, QPixmap  # noqa: F401
+from PyQt5.QtWidgets import (  # noqa: F401
+    QAction,
+    QApplication,
+    QCheckBox,
+    QComboBox,
+    QFileDialog,
+    QFormLayout,
+    QGroupBox,
+    QHBoxLayout,
+    QInputDialog,
+    QLabel,
+    QLineEdit,
+    QListWidget,
+    QListWidgetItem,
+    QMainWindow,
+    QMenu,
+    QMessageBox,
+    QPlainTextEdit,
+    QPushButton,
+    QScrollArea,
+    QSpinBox,
+    QSplitter,
+    QStyle,
+    QToolButton,
+    QTreeWidget,
+    QTreeWidgetItem,
+    QVBoxLayout,
+    QWidget,
+)

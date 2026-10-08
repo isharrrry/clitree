@@ -1,0 +1,377 @@
+{
+  "_readme": "CliTree 默认解析规则（纯数据，可改）。用户覆盖写 rules.user.json，浅合并到本文件之上。evidence 段的数字全部来自本机实测，不是估计；改动本文件后先跑 clitree --check-rules。",
+  "rulesVersion": 3,
+  "evidence": {
+    "probedAt": "2026-10-05",
+    "host": "Ubuntu 22.04.5 LTS x86_64 / python3 3.10.12",
+    "commandsProbed": 105,
+    "notInstalled": 15,
+    "notInstalledList": [
+      "dumpcap",
+      "ncat",
+      "tftp",
+      "lftp",
+      "whois",
+      "ifconfig",
+      "route",
+      "arp",
+      "iptables",
+      "nft",
+      "ethtool",
+      "nmap",
+      "gdbserver",
+      "ltrace",
+      "valgrind"
+    ],
+    "grade": {
+      "full": 76,
+      "weak": 15,
+      "usage-only": 14
+    },
+    "dialects": {
+      "usage-posix": 92,
+      "blocks-only": 6,
+      "unknown": 5,
+      "dashdash-interactive": 2
+    },
+    "trueEnumsFound": 2,
+    "dashHDeclaredInHelp": 20,
+    "dashHSameAsHelp": 18,
+    "rcUnreliableExamples": "ping(2) awk(2) which(2) ip(255) ssh(255) tracepath(255) dig(1) host(1) scp(1) killall(1) top(1) npm(1) ftp(1) nc(1) socat(1) telnet(1) sftp(1) netcat(1) —— rc≠0 但有可用 help",
+    "interactiveGain": "gdb --help 3071 B 而 gdb -batch -ex 'help all' 111781 B（36×）"
+  },
+  "dialects": {
+    "detect": [
+      {
+        "name": "man-page",
+        "firstLineMatches": "^[A-Z][A-Z0-9_-]+\\(\\d\\)$",
+        "action": "fallbackToHelpChannel"
+      },
+      {
+        "name": "dashdash-interactive",
+        "anyLineMatches": "^\\s*Command class:",
+        "orLineCount": {
+          "pattern": "^[A-Za-z][\\w-]*(?:, ?[\\w-]+)* -- \\S",
+          "min": 5
+        }
+      },
+      {
+        "name": "usage-posix",
+        "anyLineMatches": "(?i)^\\s*(usage|用法|使用情况)\\s*[:：]?"
+      },
+      {
+        "name": "blocks-only"
+      }
+    ]
+  },
+  "dashdashInteractive": {
+    "definitionLine": "^\\s*(?P<names>[A-Za-z][\\w-]*(?:, ?[\\w-]+)*)\\s+--\\s+(?P<desc>.+)$",
+    "aliasesSplit": ",\\s*",
+    "classHeader": "^\\s*Command class:\\s*(?P<class>.+)$",
+    "multiWordNameIsSubcommand": true
+  },
+  "helpChannels": {
+    "order": [
+      [
+        "--help"
+      ],
+      [
+        "-h"
+      ],
+      [
+        "/?"
+      ],
+      [
+        "-?"
+      ],
+      [
+        "help"
+      ],
+      [
+        "-help"
+      ]
+    ],
+    "dashHRequiresDeclarationInHelp": true,
+    "dashHDeclarationPattern": "(^|\\s)-h\\b[^\\n]{0,40}\\bhelp\\b|--help[^\\n]{0,40}\\s-h\\b",
+    "dashHMeasuredWhitelist": [
+      "gzip",
+      "kill",
+      "pkill",
+      "mount",
+      "umount",
+      "ss",
+      "ping",
+      "curl",
+      "wget",
+      "rsync",
+      "systemctl",
+      "journalctl",
+      "lscpu",
+      "lsblk",
+      "pnpm",
+      "node",
+      "python3",
+      "dotnet",
+      "code",
+      "nano"
+    ],
+    "dashHMeasuredDiff": [
+      "ping",
+      "pnpm"
+    ],
+    "interactiveChannels": {
+      "gdb": [
+        [
+          "-batch",
+          "-ex",
+          "help all"
+        ],
+        [
+          "-batch",
+          "-ex",
+          "help"
+        ]
+      ],
+      "ftp": [
+        [
+          "-h"
+        ]
+      ],
+      "sqlite3": [
+        [
+          "-help"
+        ]
+      ]
+    },
+    "denyNeverProbe": [
+      "shutdown",
+      "reboot",
+      "halt",
+      "poweroff",
+      "init",
+      "telinit",
+      "mkfs",
+      "mkfs.ext4",
+      "mkfs.xfs",
+      "dd",
+      "fdisk",
+      "parted",
+      "mkswap",
+      "swapon",
+      "swapoff",
+      "wipefs",
+      "blkdiscard",
+      "passwd",
+      "userdel",
+      "groupdel",
+      "chpasswd",
+      "visudo",
+      "at",
+      "batch"
+    ],
+    "timeoutMs": 5000,
+    "maxOutputBytes": 262144,
+    "env": {
+      "PAGER": "cat",
+      "MANPAGER": "cat",
+      "GIT_PAGER": "cat",
+      "SYSTEMD_PAGER": "cat"
+    },
+    "stdin": "closed"
+  },
+  "segments": {
+    "detection": "structural-first",
+    "structural": {
+      "titleLineMaxLen": 32,
+      "endsWithColonOrBlankLineFollows": true
+    },
+    "usage": [
+      "usage",
+      "用法",
+      "使用情况",
+      "synopsis"
+    ],
+    "commands": [
+      "commands",
+      "命令",
+      "子命令",
+      "可用命令",
+      "use one of these commands"
+    ],
+    "options": [
+      "options",
+      "选项",
+      "参数",
+      "主操作模式",
+      "main operation mode",
+      "operation modifiers",
+      "runtime-options",
+      "description",
+      "other options",
+      "output control",
+      "context control",
+      "miscellaneous"
+    ],
+    "measuredTitleFrequency": {
+      "options": 14,
+      "usage": 10,
+      "examples": 4,
+      "commands": 4,
+      "other options": 3
+    }
+  },
+  "optionBlock": {
+    "unit": "block",
+    "joinContinuation": true,
+    "continuationMinExtraIndent": 2,
+    "nameToken": "(?<![-\\w])(--[A-Za-z][\\w-]*|-[A-Za-z][\\w-]*)",
+    "valueToken": "(<[^>]+>|\\[=[^\\]]+\\]|=\\{[^}]*\\}[^\\s]*|[A-Z][A-Z0-9_]{1,})",
+    "separators": [
+      "\\s{2,}",
+      "\\s*[:：]\\s*"
+    ],
+    "valueMustBeAdjacentToName": true
+  },
+  "required": {
+    "fromUsageLine": true,
+    "optionalWrappers": [
+      "[",
+      "]"
+    ],
+    "markers": [
+      "<",
+      ">"
+    ]
+  },
+  "widgets": {
+    "flagMeans": "no-value-token",
+    "enumFromHelp": {
+      "phrases": [
+        "one of",
+        "can be one of",
+        "one of the following",
+        "可选值",
+        "取值范围"
+      ],
+      "shape": "<a|b|c>",
+      "reject": [
+        "<data|filename>"
+      ]
+    },
+    "enumTables": {
+      "ping": {
+        "-M": [
+          "do",
+          "dont",
+          "want"
+        ],
+        "-T": [
+          "tsonly",
+          "tsandaddr",
+          "tsprespec"
+        ]
+      }
+    },
+    "numericWords": [
+      "count",
+      "num",
+      "number",
+      "size",
+      "timeout",
+      "deadline",
+      "interval",
+      "second",
+      "port",
+      "ttl",
+      "hop",
+      "preload",
+      "retr",
+      "level",
+      "depth",
+      "width",
+      "height",
+      "byte",
+      "rate",
+      "mtu",
+      "priority",
+      "times",
+      "mark"
+    ],
+    "pathWords": [
+      "file",
+      "path",
+      "dir",
+      "directory",
+      "filename",
+      "dest",
+      "destination",
+      "url",
+      "uri",
+      "host",
+      "address",
+      "interface",
+      "pattern"
+    ],
+    "boolWords": [
+      "true",
+      "false",
+      "enable",
+      "disable",
+      "toggle",
+      "[no-]"
+    ],
+    "repeatMarkers": [
+      "...",
+      "multiple times",
+      "可多次"
+    ],
+    "exclusiveGroupsFromUsage": true,
+    "comboEditable": true,
+    "fallback": "text",
+    "overrides": {}
+  },
+  "subcommands": {
+    "initialDepth": 2,
+    "lazyExpand": true,
+    "maxDepth": 3,
+    "fromCommandsSegment": true,
+    "fallback": [
+      [
+        "help",
+        "-a"
+      ],
+      [
+        "--help-all"
+      ]
+    ],
+    "measuredUnreliable": "段落抽取实测不可靠：pnpm 假阳 91、git 中文版假阴 2、git help -a 抽 0 而真值 144 ⇒ 必须允许「不确定」态"
+  },
+  "manPage": {
+    "detect": [
+      "^[A-Z0-9-]+\\(\\d\\)",
+      "SYNOPSIS"
+    ],
+    "fallbackArgs": [
+      [
+        "-h"
+      ],
+      [
+        "--help-all"
+      ],
+      [
+        "help"
+      ]
+    ]
+  },
+  "locale": {
+    "probeOrder": [
+      "C",
+      null
+    ]
+  },
+  "limits": {
+    "maxConcurrentProbes": 2,
+    "maxLogLines": 5000,
+    "maxLogLineLen": 2000
+  }
+}

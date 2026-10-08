@@ -1,0 +1,47 @@
+用法：git clone [<选项>] [--] <仓库> [<路径>]
+
+    -v, --verbose         更加详细
+    -q, --quiet           更加安静
+    --progress            强制显示进度报告
+    --reject-shallow      不克隆浅仓库
+    -n, --no-checkout     不创建一个检出
+    --bare                创建一个纯仓库
+    --mirror              创建一个镜像仓库（也是纯仓库）
+    -l, --local           从本地仓库克隆
+    --no-hardlinks        不使用本地硬链接，始终复制
+    -s, --shared          设置为共享仓库
+    --recurse-submodules[=<路径规格>]
+                          在克隆时初始化子模组
+    --recursive[=<路径规格>]
+                          --recurse-submodules 的别名
+    -j, --jobs <n>        并发克隆的子模组的数量
+    --template <模板目录>
+                          模板目录将被使用
+    --reference <仓库>    参考仓库
+    --reference-if-able <仓库>
+                          参考仓库
+    --dissociate          仅在克隆时参考 --reference 指向的本地仓库
+    -o, --origin <名称>   使用 <名称> 而不是 'origin' 去跟踪上游
+    -b, --branch <分支>   检出 <分支> 而不是远程 HEAD
+    -u, --upload-pack <路径>
+                          远程 git-upload-pack 路径
+    --depth <深度>        创建一个指定深度的浅克隆
+    --shallow-since <时间>
+                          从一个特定时间创建一个浅克隆
+    --shallow-exclude <版本>
+                          深化浅克隆的历史，除了特定版本
+    --single-branch       只克隆一个分支、HEAD 或 --branch
+    --no-tags             不要克隆任何标签，并且后续获取操作也不下载它们
+    --shallow-submodules  子模组将以浅下载模式克隆
+    --separate-git-dir <git目录>
+                          git目录和工作区分离
+    -c, --config <key=value>
+                          在新仓库中设置配置信息
+    --server-option <server-specific>
+                          传输选项
+    -4, --ipv4            只使用 IPv4 地址
+    -6, --ipv6            只使用 IPv6 地址
+    --filter <参数>       对象过滤
+    --remote-submodules   任何克隆的子模组将使用它们的远程跟踪分支
+    --sparse              初始化稀疏检出文件，只包含根目录文件
+

@@ -1,0 +1,11 @@
+tcpdump version 4.99.1
+libpcap version 1.10.1 (with TPACKET_V3)
+OpenSSL 3.0.2 15 Mar 2022
+Usage: tcpdump [-AbdDefhHIJKlLnNOpqStuUvxX#] [ -B size ] [ -c count ] [--count]
+		[ -C file_size ] [ -E algo:secret ] [ -F file ] [ -G seconds ]
+		[ -i interface ] [ --immediate-mode ] [ -j tstamptype ]
+		[ -M secret ] [ --number ] [ --print ] [ -Q in|out|inout ]
+		[ -r file ] [ -s snaplen ] [ -T type ] [ --version ]
+		[ -V file ] [ -w file ] [ -W filecount ] [ -y datalinktype ]
+		[ --time-stamp-precision precision ] [ --micro ] [ --nano ]
+		[ -z postrotate-command ] [ -Z user ] [ expression ]

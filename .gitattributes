@@ -1,0 +1,18 @@
+# Line endings and binary detection, so a contribution from any OS produces the same diff.
+# The whole repository is stored with LF in the index; `text=auto` normalises on the way in and
+# `eol=lf` keeps checkouts identical too, which is what the tests and the CLI fixtures expect.
+* text=auto eol=lf
+
+# Generated or binary content: never touch it.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.zip binary
+*.so binary
+*.dll binary
+*.exe binary
+
+# Help-text fixtures are byte-exact upstream output: never normalise them.
+tests/fixtures/help/** -text

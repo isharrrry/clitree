@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+
+# Local IDE / OS noise
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# NOTE: `cli/` is tracked on purpose — it holds per-tool profiles, parameter
+# values and your own parameter notes. Only ignore it if those values are
+# private to your machine (see docs/configuration.md).
+
+# Agent/session transcripts that may be produced while working in this folder
+*-session.jsonl

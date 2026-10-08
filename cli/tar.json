@@ -1,0 +1,3281 @@
+{
+ "schema": 1,
+ "cli": "tar",
+ "updatedAt": "2026-10-08T16:01:13",
+ "targets": {
+  "": {
+   "exe": "tar",
+   "channel": [
+    "--help"
+   ],
+   "rc": 0,
+   "grade": "full",
+   "dialect": "usage-posix",
+   "raw_sha256": "ea6d4b2c341715f290e923a8c4a684755e41ddcbfc7b404fc91ded9c88ad03f2",
+   "raw_bytes": 15861,
+   "raw_head": "用法: tar [选项...] [FILE]...\nGNU 'tar' saves many files together into a single tape or disk archive, and can\nrestore individual files from the archive.\n\nExamples:\n  tar -cf archive.tar foo bar  # Create archive.tar from files foo and bar.\n  tar -tvf archive.tar         # List all files in archive.tar verbosely.\n  tar -xf archive.tar          # Extract all files from archive.tar.\n\n 主操作模式:\n  -A, --catenate, --concatenate   追加 tar 文件至归档\n  -c, --create               创建一个新归档\n      --delete               从归档(非磁带！)中删除\n  -d, --diff, --compare      找出归档和文件系统的差异\n  -r, --append               追加文件至归档结尾\n      --test-label           测试归档卷标并退出\n  -t, --list                 列出归档内容\n  -u, --update               仅追加比归档中副本更新的文件\n  -x, --extract, --get       从归档中解出文件\n\n 操作修饰符:\n\n      --check-device         当创建增量归档时检查设备号(默认)\n  -g, --listed-incremental=FILE   处理新式的 GNU 格式的增量备份\n  -G, --incremental          处理老式的 GNU 格式的增量备份\n      --hole-detection=TYPE  用于探测holes 的技术\n      --ignore-failed-read\n                             当遇上不可读文件时不要以非零值退出\n      --level=NUMBER         所创建的增量列表归档的输出级别\n      --no-check-device      当创建增量归档时不要检查设备号\n      --no-seek              归档不可检索\n  -n, --seek                 归档可检索\n      --occurrence[=NUMBER]  仅处理归档中每个文件的第 NUMBER\n                             个事件；仅当与以下子命令 --delete,\n                             --diff, --extract 或是 --list\n                             中的一个联合使用时，此选项才有效。而且不管文件列表是以命令行形式给出或是通过\n                             -T 选项指定的；NUMBER 值默认为 1\n      --sparse-version=MAJOR[.MINOR]\n                             设置所用的离散格式版本(隐含\n                             --sparse)\n  -S, --sparse               高效处理离散文件\n\n 本地文件名选择:\n      --add-file=FILE        添加指定的 FILE 至归档(如果名字以 -\n                             开始会很有用的)\n  -C, --directory=DIR        改变至目录 DIR\n      --exclude=PATTERN      排除以 PATTERN 指定的文件\n      --exclude-backups      排除备份和锁文件\n      --exclude-caches       除标识文件本身外，排除包含\n                             CACHEDIR.TAG 的目录中的内容\n      --exclude-caches-all   排除包含 CACHEDIR.TAG 的目录\n      --exclude-caches-under 排除包含 CACHEDIR.TAG\n          ",
+   "parsedAt": "2026-10-08T16:01:13",
+   "options": [
+    {
+     "names": [
+      "-A",
+      "--catenate",
+      "--concatenate"
+     ],
+     "takes_value": false,
+     "desc": "追加 tar 文件至归档",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--catenate",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-c",
+      "--create"
+     ],
+     "takes_value": false,
+     "desc": "创建一个新归档",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--create",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--delete"
+     ],
+     "takes_value": false,
+     "desc": "从归档(非磁带！)中删除",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--delete",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-d",
+      "--diff",
+      "--compare"
+     ],
+     "takes_value": false,
+     "desc": "找出归档和文件系统的差异",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--diff",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-r",
+      "--append"
+     ],
+     "takes_value": false,
+     "desc": "追加文件至归档结尾",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--append",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--test-label"
+     ],
+     "takes_value": false,
+     "desc": "测试归档卷标并退出",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--test-label",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-t",
+      "--list"
+     ],
+     "takes_value": false,
+     "desc": "列出归档内容",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--list",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-u",
+      "--update"
+     ],
+     "takes_value": false,
+     "desc": "仅追加比归档中副本更新的文件",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--update",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-x",
+      "--extract",
+      "--get"
+     ],
+     "takes_value": false,
+     "desc": "从归档中解出文件",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--extract",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--check-device"
+     ],
+     "takes_value": false,
+     "desc": "当创建增量归档时检查设备号(默认)",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--check-device",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-g",
+      "--listed-incremental"
+     ],
+     "takes_value": true,
+     "desc": "=FILE   处理新式的 GNU 格式的增量备份",
+     "value_token": "FILE",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "path",
+     "widget_reason": "判为路径：取值名/描述命中路径语义（FILE）",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--listed-incremental",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-G",
+      "--incremental"
+     ],
+     "takes_value": false,
+     "desc": "处理老式的 GNU 格式的增量备份",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--incremental",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--hole-detection"
+     ],
+     "takes_value": true,
+     "desc": "=TYPE  用于探测holes 的技术",
+     "value_token": "TYPE",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "未确定：help 未给出足够信息，可右键改成其它控件类型",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--hole-detection",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--ignore-failed-read"
+     ],
+     "takes_value": false,
+     "desc": "当遇上不可读文件时不要以非零值退出",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--ignore-failed-read",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--level"
+     ],
+     "takes_value": true,
+     "desc": "=NUMBER         所创建的增量列表归档的输出级别",
+     "value_token": "NUMBER",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "spin",
+     "widget_reason": "判为数值：取值名/描述命中数字语义（NUMBER）",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--level",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--no-check-device"
+     ],
+     "takes_value": false,
+     "desc": "当创建增量归档时不要检查设备号",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--no-check-device",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--no-seek"
+     ],
+     "takes_value": false,
+     "desc": "归档不可检索",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--no-seek",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-n",
+      "--seek"
+     ],
+     "takes_value": false,
+     "desc": "归档可检索",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--seek",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--occurrence"
+     ],
+     "takes_value": true,
+     "desc": "仅处理归档中每个文件的第 NUMBER 个事件；仅当与以下子命令 --delete,",
+     "value_token": "[=NUMBER]",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "spin",
+     "widget_reason": "判为数值：取值名/描述命中数字语义（[=NUMBER]）",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--occurrence",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--diff",
+      "--extract",
+      "--list"
+     ],
+     "takes_value": false,
+     "desc": "",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--diff",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-T"
+     ],
+     "takes_value": false,
+     "desc": "选项指定的；NUMBER 值默认为 1",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "-T",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--sparse-version"
+     ],
+     "takes_value": true,
+     "desc": "=MAJOR[.MINOR] 设置所用的离散格式版本(隐含",
+     "value_token": "MAJOR[.MINOR]",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "未确定：help 未给出足够信息，可右键改成其它控件类型",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--sparse-version",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--sparse"
+     ],
+     "takes_value": false,
+     "desc": ")",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--sparse",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-S",
+      "--sparse"
+     ],
+     "takes_value": false,
+     "desc": "高效处理离散文件",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--sparse",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--add-file"
+     ],
+     "takes_value": true,
+     "desc": "=FILE        添加指定的 FILE 至归档(如果名字以 - 开始会很有用的)",
+     "value_token": "FILE",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "path",
+     "widget_reason": "判为路径：取值名/描述命中路径语义（FILE）",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--add-file",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-C",
+      "--directory"
+     ],
+     "takes_value": true,
+     "desc": "=DIR        改变至目录 DIR",
+     "value_token": "DIR",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "path",
+     "widget_reason": "判为路径：取值名/描述命中路径语义（DIR）",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--directory",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--exclude"
+     ],
+     "takes_value": true,
+     "desc": "=PATTERN      排除以 PATTERN 指定的文件",
+     "value_token": "PATTERN",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "path",
+     "widget_reason": "判为路径：取值名/描述命中路径语义（PATTERN）",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--exclude",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--exclude-backups"
+     ],
+     "takes_value": false,
+     "desc": "排除备份和锁文件",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--exclude-backups",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--exclude-caches"
+     ],
+     "takes_value": false,
+     "desc": "除标识文件本身外，排除包含 CACHEDIR.TAG 的目录中的内容",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--exclude-caches",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--exclude-caches-all"
+     ],
+     "takes_value": false,
+     "desc": "排除包含 CACHEDIR.TAG 的目录",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--exclude-caches-all",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--exclude-caches-under"
+     ],
+     "takes_value": false,
+     "desc": "排除包含 CACHEDIR.TAG 的目录中所有内容",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--exclude-caches-under",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--exclude-ignore"
+     ],
+     "takes_value": true,
+     "desc": "=FILE  若存在FILE, 则从其中读取每个目录的例外匹配项",
+     "value_token": "FILE",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "path",
+     "widget_reason": "判为路径：取值名/描述命中路径语义（FILE）",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--exclude-ignore",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--exclude-ignore-recursive"
+     ],
+     "takes_value": true,
+     "desc": "=FILE 若存在FILE, 则从其中为每个目录及其子目录读取需要排除的例外匹配项",
+     "value_token": "FILE",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "path",
+     "widget_reason": "判为路径：取值名/描述命中路径语义（FILE）",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--exclude-ignore-recursive",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--exclude-tag"
+     ],
+     "takes_value": true,
+     "desc": "=FILE     除 FILE 自身外，排除包含 FILE 的目录中的内容",
+     "value_token": "FILE",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "path",
+     "widget_reason": "判为路径：取值名/描述命中路径语义（FILE）",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--exclude-tag",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--exclude-tag-all"
+     ],
+     "takes_value": true,
+     "desc": "=FILE 排除包含 FILE 的目录",
+     "value_token": "FILE",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "path",
+     "widget_reason": "判为路径：取值名/描述命中路径语义（FILE）",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--exclude-tag-all",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--exclude-tag-under"
+     ],
+     "takes_value": true,
+     "desc": "=FILE   排除包含 FILE 的目录中的所有内容",
+     "value_token": "FILE",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "path",
+     "widget_reason": "判为路径：取值名/描述命中路径语义（FILE）",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--exclude-tag-under",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--exclude-vcs"
+     ],
+     "takes_value": false,
+     "desc": "排除版本控制系统目录",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--exclude-vcs",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--exclude-vcs-ignores"
+     ],
+     "takes_value": false,
+     "desc": "从VCS 忽略文件中读取排除匹配项",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--exclude-vcs-ignores",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--no-null",
+      "--null"
+     ],
+     "takes_value": false,
+     "desc": "选项",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--no-null",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--no-recursion"
+     ],
+     "takes_value": false,
+     "desc": "避免目录中的自动降级",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--no-recursion",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--no-unquote"
+     ],
+     "takes_value": false,
+     "desc": "不要unquote 输入文件或成员名称",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--no-unquote",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--no-verbatim-files-from",
+      "-T"
+     ],
+     "takes_value": false,
+     "desc": "把以‘-’开始的文件作为选项(默认)",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--no-verbatim-files-from",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--null",
+      "-T"
+     ],
+     "takes_value": false,
+     "desc": "读取以空终止的名字; 隐含",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--null",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--verbatim-files-from"
+     ],
+     "takes_value": false,
+     "desc": "",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--verbatim-files-from",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--recursion"
+     ],
+     "takes_value": false,
+     "desc": "目录递归（默认）",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--recursion",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-T",
+      "--files-from"
+     ],
+     "takes_value": true,
+     "desc": "=FILE      从 FILE 中获取文件名来解压或创建文件",
+     "value_token": "FILE",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "path",
+     "widget_reason": "判为路径：取值名/描述命中路径语义（FILE）",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--files-from",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--unquote"
+     ],
+     "takes_value": false,
+     "desc": "unquote 输入文件或成员名称(默认)",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--unquote",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--verbatim-files-from",
+      "-T"
+     ],
+     "takes_value": false,
+     "desc": "逐字读取文件名（不处理选项或进行转义）",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--verbatim-files-from",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-X",
+      "--exclude-from"
+     ],
+     "takes_value": true,
+     "desc": "=FILE    排除 FILE 中列出的模式串",
+     "value_token": "FILE",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "path",
+     "widget_reason": "判为路径：取值名/描述命中路径语义（FILE）",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--exclude-from",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--anchored"
+     ],
+     "takes_value": false,
+     "desc": "模式串匹配文件名头部",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--anchored",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--ignore-case"
+     ],
+     "takes_value": false,
+     "desc": "忽略大小写",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--ignore-case",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--no-anchored"
+     ],
+     "takes_value": false,
+     "desc": "模式串匹配任意‘/’后字符（对 exclusion 为默认值）",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--no-anchored",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--no-ignore-case"
+     ],
+     "takes_value": false,
+     "desc": "匹配大小写(默认)",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--no-ignore-case",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--no-wildcards"
+     ],
+     "takes_value": false,
+     "desc": "逐字匹配字符串",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--no-wildcards",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--no-wildcards-match-slash"
+     ],
+     "takes_value": false,
+     "desc": "通配符不匹配‘/’",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--no-wildcards-match-slash",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--wildcards"
+     ],
+     "takes_value": false,
+     "desc": "使用通配符（对 exclusion 为默认值）",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--wildcards",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--wildcards-match-slash"
+     ],
+     "takes_value": false,
+     "desc": "通配符匹配‘/’（对 exclusion 为默认值）",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--wildcards-match-slash",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--keep-directory-symlink"
+     ],
+     "takes_value": false,
+     "desc": "解压时保留已存在的目录符号链接",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--keep-directory-symlink",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--keep-newer-files"
+     ],
+     "takes_value": false,
+     "desc": "不要替换比归档中副本更新的已存在的文件",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--keep-newer-files",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-k",
+      "--keep-old-files"
+     ],
+     "takes_value": false,
+     "desc": "解压时不替换存在的文件, 而将其认为是错误",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--keep-old-files",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--no-overwrite-dir"
+     ],
+     "takes_value": false,
+     "desc": "保留已存在目录的元数据",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--no-overwrite-dir",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--one-top-level"
+     ],
+     "takes_value": true,
+     "desc": "创建子目录以避免解压松散文件",
+     "value_token": "[=DIR]",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "path",
+     "widget_reason": "判为路径：取值名/描述命中路径语义（[=DIR]）",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--one-top-level",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--overwrite"
+     ],
+     "takes_value": false,
+     "desc": "解压时重写存在的文件",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--overwrite",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--overwrite-dir"
+     ],
+     "takes_value": false,
+     "desc": "解压时重写已存在目录的元数据(默认)",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--overwrite-dir",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--recursive-unlink"
+     ],
+     "takes_value": false,
+     "desc": "解压目录之前先清除目录层次",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--recursive-unlink",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--remove-files"
+     ],
+     "takes_value": false,
+     "desc": "在添加文件至归档后删除它们",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--remove-files",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--skip-old-files"
+     ],
+     "takes_value": false,
+     "desc": "解压时不替换存在的文件，而是自动忽略",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--skip-old-files",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-U",
+      "--unlink-first"
+     ],
+     "takes_value": false,
+     "desc": "在解压要重写的文件之前先删除它们",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--unlink-first",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-W",
+      "--verify"
+     ],
+     "takes_value": false,
+     "desc": "在写入以后尝试校验归档",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--verify",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--ignore-command-error"
+     ],
+     "takes_value": false,
+     "desc": "忽略子进程的退出代码",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--ignore-command-error",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--no-ignore-command-error"
+     ],
+     "takes_value": false,
+     "desc": "将子进程的非零退出代码认为发生错误",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--no-ignore-command-error",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-O",
+      "--to-stdout"
+     ],
+     "takes_value": false,
+     "desc": "解压文件至标准输出",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--to-stdout",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--to-command"
+     ],
+     "takes_value": true,
+     "desc": "=COMMAND 将解压的文件通过管道传送至另一个程序",
+     "value_token": "COMMAND",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "未确定：help 未给出足够信息，可右键改成其它控件类型",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--to-command",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--atime-preserve"
+     ],
+     "takes_value": true,
+     "desc": "在输出的文件上保留访问时间，要么通过在读取(默认 METHOD=‘replace’)后还原时间，要不就不要在第一次(METHOD=‘system’)设置时间",
+     "value_token": "[=METHOD]",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "未确定：help 未给出足够信息，可右键改成其它控件类型",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--atime-preserve",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--clamp-mtime",
+      "--mtime"
+     ],
+     "takes_value": false,
+     "desc": "指定的文件更新时仅更新时间",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--clamp-mtime",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--delay-directory-restore"
+     ],
+     "takes_value": false,
+     "desc": "直到解压结束才设置修改时间和所解目录的权限",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--delay-directory-restore",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--group"
+     ],
+     "takes_value": true,
+     "desc": "=名称         强制将 NAME 作为所添加的文件的组所有者",
+     "value_token": "名称",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "未确定：help 未给出足够信息，可右键改成其它控件类型",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--group",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--group-map"
+     ],
+     "takes_value": true,
+     "desc": "=FILE       用FILE 映射文件所有者GIDs 和名字",
+     "value_token": "FILE",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "path",
+     "widget_reason": "判为路径：取值名/描述命中路径语义（FILE）",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--group-map",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--mode"
+     ],
+     "takes_value": true,
+     "desc": "=CHANGES         强制将所添加的文件(符号)更改为权限 CHANGES",
+     "value_token": "CHANGES",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "未确定：help 未给出足够信息，可右键改成其它控件类型",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--mode",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--mtime"
+     ],
+     "takes_value": true,
+     "desc": "=DATE-OR-FILE   从 DATE-OR-FILE 中为添加的文件设置 mtime",
+     "value_token": "DATE-OR-FILE",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "path",
+     "widget_reason": "判为路径：取值名/描述命中路径语义（DATE-OR-FILE）",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--mtime",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-m",
+      "--touch"
+     ],
+     "takes_value": false,
+     "desc": "不要解压文件的修改时间",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--touch",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--no-delay-directory-restore"
+     ],
+     "takes_value": false,
+     "desc": "取消 --delay-directory-restore 选项的效果",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--no-delay-directory-restore",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--no-same-owner"
+     ],
+     "takes_value": false,
+     "desc": "将文件解压为您所有(普通用户默认此项)",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--no-same-owner",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--no-same-permissions"
+     ],
+     "takes_value": false,
+     "desc": "从归档中解压权限时使用用户的掩码位(默认为普通用户服务)",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--no-same-permissions",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--numeric-owner"
+     ],
+     "takes_value": false,
+     "desc": "总是以数字代表用户/组的名称",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--numeric-owner",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--owner"
+     ],
+     "takes_value": true,
+     "desc": "=名称         强制将 NAME 作为所添加的文件的所有者",
+     "value_token": "名称",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "未确定：help 未给出足够信息，可右键改成其它控件类型",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--owner",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--owner-map"
+     ],
+     "takes_value": true,
+     "desc": "=FILE       用FILE 映射文件所有者UIDs 和名字",
+     "value_token": "FILE",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "path",
+     "widget_reason": "判为路径：取值名/描述命中路径语义（FILE）",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--owner-map",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-p",
+      "--preserve-permissions",
+      "--same-permissions"
+     ],
+     "takes_value": false,
+     "desc": "解压文件权限信息(默认只为超级用户服务)",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--preserve-permissions",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--same-owner"
+     ],
+     "takes_value": false,
+     "desc": "尝试解压时保持所有者关系一致(超级用户默认此项)",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--same-owner",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--sort"
+     ],
+     "takes_value": true,
+     "desc": "=ORDER           目录排序顺序: none(默认), name 或inode",
+     "value_token": "ORDER",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "未确定：help 未给出足够信息，可右键改成其它控件类型",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--sort",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-s",
+      "--preserve-order",
+      "--same-order"
+     ],
+     "takes_value": false,
+     "desc": "成员参数按归档中的文件顺序列出",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--preserve-order",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--acls"
+     ],
+     "takes_value": false,
+     "desc": "开启 POSIX ACLs 支持",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--acls",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--no-acls"
+     ],
+     "takes_value": false,
+     "desc": "关闭 POSIX ACLs 支持",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--no-acls",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--no-selinux"
+     ],
+     "takes_value": false,
+     "desc": "关闭 SELinux 上下文支持",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--no-selinux",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--no-xattrs"
+     ],
+     "takes_value": false,
+     "desc": "关闭extended 属性支持",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--no-xattrs",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--selinux"
+     ],
+     "takes_value": false,
+     "desc": "开启 SELinux 上下文支持",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--selinux",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--xattrs"
+     ],
+     "takes_value": false,
+     "desc": "开启extended 属性支持",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--xattrs",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--xattrs-exclude"
+     ],
+     "takes_value": true,
+     "desc": "=MASK  为xattr 关键字指定排除匹配项",
+     "value_token": "MASK",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "未确定：help 未给出足够信息，可右键改成其它控件类型",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--xattrs-exclude",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--xattrs-include"
+     ],
+     "takes_value": true,
+     "desc": "=MASK  为xattr 关键字指定包含匹配项",
+     "value_token": "MASK",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "未确定：help 未给出足够信息，可右键改成其它控件类型",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--xattrs-include",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--force-local"
+     ],
+     "takes_value": false,
+     "desc": "即使归档文件存在副本还是把它认为是本地归档",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--force-local",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-f",
+      "--file"
+     ],
+     "takes_value": true,
+     "desc": "=ARCHIVE         使用归档文件或 ARCHIVE 设备",
+     "value_token": "ARCHIVE",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "未确定：help 未给出足够信息，可右键改成其它控件类型",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--file",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-F",
+      "--info-script",
+      "--new-volume-script"
+     ],
+     "takes_value": true,
+     "desc": "=名称 在每卷磁带最后运行脚本(隐含 -M)",
+     "value_token": "名称",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "未确定：help 未给出足够信息，可右键改成其它控件类型",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--info-script",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-L",
+      "--tape-length"
+     ],
+     "takes_value": true,
+     "desc": "=NUMBER   写入 NUMBER × 1024 字节后更换磁带",
+     "value_token": "NUMBER",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "spin",
+     "widget_reason": "判为数值：取值名/描述命中数字语义（NUMBER）",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--tape-length",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-M",
+      "--multi-volume"
+     ],
+     "takes_value": false,
+     "desc": "创建/列出/解压多卷归档文件",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--multi-volume",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--rmt-command"
+     ],
+     "takes_value": true,
+     "desc": "=COMMAND  使用指定的 rmt COMMAND 代替 rmt",
+     "value_token": "COMMAND",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "未确定：help 未给出足够信息，可右键改成其它控件类型",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--rmt-command",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--rsh-command"
+     ],
+     "takes_value": true,
+     "desc": "=COMMAND  使用远程 COMMAND 代替 rsh",
+     "value_token": "COMMAND",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "未确定：help 未给出足够信息，可右键改成其它控件类型",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--rsh-command",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--volno-file"
+     ],
+     "takes_value": true,
+     "desc": "=FILE      使用/更新 FILE 中的卷数",
+     "value_token": "FILE",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "path",
+     "widget_reason": "判为路径：取值名/描述命中路径语义（FILE）",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--volno-file",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-b",
+      "--blocking-factor"
+     ],
+     "takes_value": true,
+     "desc": "=BLOCKS   每个记录 BLOCKS x 512 字节",
+     "value_token": "BLOCKS",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "未确定：help 未给出足够信息，可右键改成其它控件类型",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--blocking-factor",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-B",
+      "--read-full-records"
+     ],
+     "takes_value": false,
+     "desc": "读取时重新分块(只对 4.2BSD 管道有效)",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--read-full-records",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-i",
+      "--ignore-zeros"
+     ],
+     "takes_value": false,
+     "desc": "忽略归档中的零字节块(即文件结尾)",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--ignore-zeros",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--record-size"
+     ],
+     "takes_value": true,
+     "desc": "=NUMBER   每个记录的字节数 NUMBER，乘以 512",
+     "value_token": "NUMBER",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "spin",
+     "widget_reason": "判为数值：取值名/描述命中数字语义（NUMBER）",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--record-size",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-H",
+      "--format"
+     ],
+     "takes_value": true,
+     "desc": "=FORMAT        创建指定格式的归档",
+     "value_token": "FORMAT",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "未确定：help 未给出足够信息，可右键改成其它控件类型",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--format",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--old-archive",
+      "--portability"
+     ],
+     "takes_value": false,
+     "desc": "等同于 --format=v7",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--old-archive",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--pax-option"
+     ],
+     "takes_value": true,
+     "desc": "=关键字[[:]=值][,关键字[[:]=值]]... 控制 pax 关键字",
+     "value_token": "关键字[[:]=值][,关键字[[:]=值]]...",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "multi",
+     "widget_reason": "判为多值：描述标明可重复（... / multiple times）",
+     "repeatable": true,
+     "group": null,
+     "position": null,
+     "key": "--pax-option",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--posix",
+      "--format"
+     ],
+     "takes_value": true,
+     "desc": "=posix",
+     "value_token": "posix",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "未确定：help 未给出足够信息，可右键改成其它控件类型",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--posix",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-V",
+      "--label"
+     ],
+     "takes_value": true,
+     "desc": "=TEXT           创建带有卷名 TEXT 的归档；在列出/解压时，使用 TEXT 作为卷名的模式串",
+     "value_token": "TEXT",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "未确定：help 未给出足够信息，可右键改成其它控件类型",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--label",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-a",
+      "--auto-compress"
+     ],
+     "takes_value": false,
+     "desc": "使用归档后缀名来决定压缩程序",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--auto-compress",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-I",
+      "--use-compress-program"
+     ],
+     "takes_value": true,
+     "desc": "=PROG 通过 PROG 过滤(必须是能接受 -d 选项的程序)",
+     "value_token": "PROG",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "未确定：help 未给出足够信息，可右键改成其它控件类型",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--use-compress-program",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-j",
+      "--bzip2"
+     ],
+     "takes_value": false,
+     "desc": "通过 bzip2 过滤归档",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--bzip2",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-J",
+      "--xz"
+     ],
+     "takes_value": false,
+     "desc": "通过 xz 过滤归档",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--xz",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--lzip"
+     ],
+     "takes_value": false,
+     "desc": "通过 lzip 过滤归档",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--lzip",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--lzma"
+     ],
+     "takes_value": false,
+     "desc": "通过 xz 过滤归档",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--lzma",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--lzop"
+     ],
+     "takes_value": false,
+     "desc": "通过 lzop 过滤归档",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--lzop",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--no-auto-compress"
+     ],
+     "takes_value": false,
+     "desc": "不使用归档后缀名来决定压缩程序",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--no-auto-compress",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--zstd"
+     ],
+     "takes_value": false,
+     "desc": "通过 zstd 过滤归档",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--zstd",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-z",
+      "--gzip",
+      "--gunzip",
+      "--ungzip"
+     ],
+     "takes_value": false,
+     "desc": "通过 gzip 过滤归档",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--gzip",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-Z",
+      "--compress",
+      "--uncompress"
+     ],
+     "takes_value": false,
+     "desc": "通过 compress 过滤归档",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--compress",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--backup"
+     ],
+     "takes_value": true,
+     "desc": "在删除前备份，选择 CONTROL 版本",
+     "value_token": "[=CONTROL]",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "未确定：help 未给出足够信息，可右键改成其它控件类型",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--backup",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--hard-dereference"
+     ],
+     "takes_value": false,
+     "desc": "跟踪硬链接；将它们所指向的文件归档并输出",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--hard-dereference",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-h",
+      "--dereference"
+     ],
+     "takes_value": false,
+     "desc": "跟踪符号链接；将它们所指向的文件归档并输出",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--dereference",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-K",
+      "--starting-file"
+     ],
+     "takes_value": true,
+     "desc": "=MEMBER-NAME 从归档中的 MEMBER-NAME 成员处开始读取归档",
+     "value_token": "MEMBER-NAME",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "未确定：help 未给出足够信息，可右键改成其它控件类型",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--starting-file",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--newer-mtime"
+     ],
+     "takes_value": true,
+     "desc": "=DATE     当只有数据改变时比较数据和时间",
+     "value_token": "DATE",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "未确定：help 未给出足够信息，可右键改成其它控件类型",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--newer-mtime",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-N",
+      "--newer",
+      "--after-date"
+     ],
+     "takes_value": true,
+     "desc": "=DATE-OR-FILE 只保存比 DATE-OR-FILE 更新的文件",
+     "value_token": "DATE-OR-FILE",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "path",
+     "widget_reason": "判为路径：取值名/描述命中路径语义（DATE-OR-FILE）",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--newer",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--one-file-system"
+     ],
+     "takes_value": false,
+     "desc": "创建归档时保存在本地文件系统中",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--one-file-system",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-P",
+      "--absolute-names"
+     ],
+     "takes_value": false,
+     "desc": "不要从文件名中清除引导符‘/’",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--absolute-names",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--suffix"
+     ],
+     "takes_value": true,
+     "desc": "=STRING        在删除前备份，除非被环境变量 SIMPLE_BACKUP_SUFFIX 覆盖，否则覆盖常用后缀(‘’)",
+     "value_token": "STRING",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "未确定：help 未给出足够信息，可右键改成其它控件类型",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--suffix",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--strip-components"
+     ],
+     "takes_value": true,
+     "desc": "=NUMBER   解压时从文件名中清除 NUMBER 个引导部分",
+     "value_token": "NUMBER",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "spin",
+     "widget_reason": "判为数值：取值名/描述命中数字语义（NUMBER）",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--strip-components",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--transform",
+      "--xform"
+     ],
+     "takes_value": true,
+     "desc": "=EXPRESSION 使用 sed 代替 EXPRESSION 来进行文件名变换",
+     "value_token": "EXPRESSION",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "未确定：help 未给出足够信息，可右键改成其它控件类型",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--transform",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--checkpoint"
+     ],
+     "takes_value": true,
+     "desc": "每隔 NUMBER 个记录显示进度信息(默认为 10 个)",
+     "value_token": "[=NUMBER]",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "spin",
+     "widget_reason": "判为数值：取值名/描述命中数字语义（[=NUMBER]）",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--checkpoint",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--checkpoint-action"
+     ],
+     "takes_value": true,
+     "desc": "=ACTION   在每个检查点上执行 ACTION",
+     "value_token": "ACTION",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "未确定：help 未给出足够信息，可右键改成其它控件类型",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--checkpoint-action",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--full-time"
+     ],
+     "takes_value": false,
+     "desc": "按文件原本时间格式打印",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--full-time",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--index-file"
+     ],
+     "takes_value": true,
+     "desc": "=FILE      将详细输出发送至 FILE",
+     "value_token": "FILE",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "path",
+     "widget_reason": "判为路径：取值名/描述命中路径语义（FILE）",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--index-file",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-l",
+      "--check-links"
+     ],
+     "takes_value": false,
+     "desc": "只要不是所有链接都被输出就打印信息",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--check-links",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--no-quote-chars"
+     ],
+     "takes_value": true,
+     "desc": "=STRING   禁用来自 STRING 的字符引用",
+     "value_token": "STRING",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "未确定：help 未给出足够信息，可右键改成其它控件类型",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--no-quote-chars",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--quote-chars"
+     ],
+     "takes_value": true,
+     "desc": "=STRING   来自 STRING 的额外的引用字符",
+     "value_token": "STRING",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "未确定：help 未给出足够信息，可右键改成其它控件类型",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--quote-chars",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--quoting-style"
+     ],
+     "takes_value": true,
+     "desc": "=STYLE  设置名称引用风格；有效的 STYLE 值请参阅以下说明",
+     "value_token": "STYLE",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "未确定：help 未给出足够信息，可右键改成其它控件类型",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--quoting-style",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-R",
+      "--block-number"
+     ],
+     "takes_value": false,
+     "desc": "每个信息都显示归档内的块数",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--block-number",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--show-defaults"
+     ],
+     "takes_value": false,
+     "desc": "显示 tar 默认选项",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--show-defaults",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--show-omitted-dirs"
+     ],
+     "takes_value": false,
+     "desc": "列表或解压时，列出每个不匹配查找标准的目录",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--show-omitted-dirs",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--show-snapshot-field-ranges"
+     ],
+     "takes_value": false,
+     "desc": "显示快照文件区的有效范围",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--show-snapshot-field-ranges",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--show-transformed-names",
+      "--show-stored-names"
+     ],
+     "takes_value": false,
+     "desc": "显示变换后的文件名或归档名",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--show-transformed-names",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--totals"
+     ],
+     "takes_value": true,
+     "desc": "处理归档后打印出总字节数；当此 SIGNAL 被触发时带参数 - 打印总字节数；允许的信号为: SIGHUP，SIGQUIT，SIGINT，SIGUSR1 和 SIGUSR2；同时也接受不带 SIG 前缀的信号名称",
+     "value_token": "[=SIGNAL]",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "未确定：help 未给出足够信息，可右键改成其它控件类型",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--totals",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--utc"
+     ],
+     "takes_value": false,
+     "desc": "以 UTC 格式打印文件修改时间",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--utc",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-v",
+      "--verbose"
+     ],
+     "takes_value": false,
+     "desc": "详细地列出处理的文件",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--verbose",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--warning"
+     ],
+     "takes_value": true,
+     "desc": "=KEYWORD      警告控制",
+     "value_token": "KEYWORD",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "未确定：help 未给出足够信息，可右键改成其它控件类型",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--warning",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-w",
+      "--interactive",
+      "--confirmation"
+     ],
+     "takes_value": false,
+     "desc": "每次操作都要求确认",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--interactive",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-o"
+     ],
+     "takes_value": false,
+     "desc": "创建归档时，相当于",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "-o",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--old-archive"
+     ],
+     "takes_value": false,
+     "desc": "；展开归档时，相当于",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--old-archive",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--no-same-owner"
+     ],
+     "takes_value": false,
+     "desc": "",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--no-same-owner",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--help"
+     ],
+     "takes_value": false,
+     "desc": "显示此帮助列表",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--help",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--restrict"
+     ],
+     "takes_value": false,
+     "desc": "禁用某些潜在的有危险的选项",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--restrict",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--usage"
+     ],
+     "takes_value": false,
+     "desc": "显示简短的用法说明",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--usage",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--version"
+     ],
+     "takes_value": false,
+     "desc": "打印程序版本",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--version",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--quoting-style"
+     ],
+     "takes_value": false,
+     "desc": "选项的有效参数为 literal shell shell-always shell-escape shell-escape-always c c-maybe escape locale clocale",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--quoting-style",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--format",
+      "-f-",
+      "-b20",
+      "--quoting-style",
+      "--rmt-command"
+     ],
+     "takes_value": true,
+     "desc": "=/usr/sbin/rmt",
+     "value_token": "/usr/sbin/rmt",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "未确定：help 未给出足够信息，可右键改成其它控件类型",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--format",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--rsh-command"
+     ],
+     "takes_value": true,
+     "desc": "=/usr/bin/rsh",
+     "value_token": "/usr/bin/rsh",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "未确定：help 未给出足够信息，可右键改成其它控件类型",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--rsh-command",
+     "negatable": false
+    }
+   ],
+   "subcommands": [
+    {
+     "name": "gnu",
+     "desc": "GNU tar 1.13.x 格式"
+    },
+    {
+     "name": "oldgnu",
+     "desc": "GNU 格式，其中 tar 版本 <= 1.12"
+    },
+    {
+     "name": "pax",
+     "desc": "POSIX 1003.1-2001 (pax) 格式"
+    },
+    {
+     "name": "posix",
+     "desc": "等同于 pax"
+    },
+    {
+     "name": "ustar",
+     "desc": "POSIX 1003.1-1988 (ustar) 格式"
+    },
+    {
+     "name": "v7",
+     "desc": "旧的 V7 tar 格式"
+    }
+   ]
+  }
+ },
+ "activeProfile": "默认",
+ "profiles": {
+  "默认": {
+   "note": "",
+   "createdAt": "2026-10-08T16:01:13",
+   "values": {},
+   "updatedAt": "2026-10-08T16:01:13"
+  }
+ }
+}

@@ -1,0 +1,39 @@
+Description:
+  .NET 生成器
+
+用法:
+  dotnet build [<PROJECT | SOLUTION | FILE>...] [options]
+
+参数:
+  <PROJECT | SOLUTION | FILE>  要操作的项目或解决方案或 C# 
+                               (基于文件的程序)文件。如果未指定文件，则该命令将在当前目录中搜索项目或解决方案。
+
+选项:
+  --ucr, --use-current-runtime         将当前运行时用作目标运行时。 [default: False]
+  -f, --framework <FRAMEWORK>          要生成的目标框架。必须在项目文件中指定目标框架。
+  -c, --configuration <CONFIGURATION>  用于生成项目的配置。大多数项目的默认值是 "Debug"。
+  --version-suffix <VERSION_SUFFIX>    设置生成项目时使用的 $(VersionSuffix) 属性的值。
+  --no-restore                         生成前请勿还原项目。 [default: False]
+  --interactive                        允许命令停止和等待用户输入或操作(例如，用以完成身份验证)。 [default: 
+                                       False]
+  -v, -verbosity <LEVEL>               设置 MSBuild 详细程度。允许值为 
+                                       q[uiet]、m[inimal]、n[ormal]、d[etailed] 和 
+                                       diag[nostic]。
+  -o, --output <OUTPUT_DIR>            要放置生成项目的输出目录。
+  --artifacts-path <ARTIFACTS_DIR>     工件路径。项目中的所有输出(包括生成、发布和打包输出)都将放到指定路径下的子文件夹
+                                       中。
+  --no-incremental                     请勿使用增量生成。 [default: False]
+  --no-dependencies                    请勿生成项目到项目引用，仅生成指定项目。 [default: False]
+  -nologo, --no-logo                   不显示启动版权标志或版权消息。 [default: True]
+  --sc, --self-contained               将 .NET 运行时与应用程序一起发布，从而无需在目标计算机上安装运行时。
+                                       默认值为 'false'。但目标为 .NET 7 
+                                       或更低版本时，如果指定了运行时标识符，则默认值为 'true'。 
+                                       [default: False]
+  --no-self-contained                  将应用程序发布为依赖框架的应用程序。目标计算机上必须安装兼容的 .NET 
+                                       运行时才能运行该应用程序。 [default: False]
+  -r, --runtime <RUNTIME_IDENTIFIER>   要生成的目标运行时。
+  -a, --arch <ARCH>                    目标体系结构。
+  --os <OS>                            目标操作系统。
+  --disable-build-servers              强制命令忽略任何永久性生成服务器。 [default: False]
+  -?, -h, --help                       显示命令行帮助。
+

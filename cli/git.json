@@ -1,0 +1,849 @@
+{
+ "schema": 1,
+ "cli": "git",
+ "updatedAt": "2026-10-08T16:29:31",
+ "targets": {
+  "": {
+   "exe": "git",
+   "channel": [
+    "--help"
+   ],
+   "rc": 0,
+   "grade": "usage-only",
+   "dialect": "usage-posix",
+   "raw_sha256": "2b53e35a884c83cc7a6970a1a20a5f70d9dfed896d677ac4fc04712b78502862",
+   "raw_bytes": 2051,
+   "raw_head": "用法：git [--version] [--help] [-C <路径>] [-c <名称>=<取值>]\n           [--exec-path[=<路径>]] [--html-path] [--man-path] [--info-path]\n           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--bare]\n           [--git-dir=<路径>] [--work-tree=<路径>] [--namespace=<名称>]\n           [--super-prefix=<路径>] [--config-env=<名称>=<环境变量>]\n           <命令> [<参数>]\n\n这些是各种场合常见的 Git 命令：\n\n开始一个工作区（参见：git help tutorial）\n   clone     克隆仓库到一个新目录\n   init      创建一个空的 Git 仓库或重新初始化一个已存在的仓库\n\n在当前变更上工作（参见：git help everyday）\n   add       添加文件内容至索引\n   mv        移动或重命名一个文件、目录或符号链接\n   restore   恢复工作区文件\n   rm        从工作区和索引中删除文件\n\n检查历史和状态（参见：git help revisions）\n   bisect    通过二分查找定位引入 bug 的提交\n   diff      显示提交之间、提交和工作区之间等的差异\n   grep      输出和模式匹配的行\n   log       显示提交日志\n   show      显示各种类型的对象\n   status    显示工作区状态\n\n扩展、标记和调校您的历史记录\n   branch    列出、创建或删除分支\n   commit    记录变更到仓库\n   merge     合并两个或更多开发历史\n   rebase    在另一个分支上重新应用提交\n   reset     重置当前 HEAD 到指定状态\n   switch    切换分支\n   tag       创建、列出、删除或校验一个 GPG 签名的标签对象\n\n协同（参见：git help workflows）\n   fetch     从另外一个仓库下载对象和引用\n   pull      获取并整合另外的仓库或一个本地分支\n   push      更新远程引用和相关的对象\n\n命令 'git help -a' 和 'git help -g' 显示可用的子命令和一些概念帮助。\n查看 'git help <命令>' 或 'git help <概念>' 以获取给定子命令或概念的\n帮助。\n有关系统的概述，查看 'git help git'。\n",
+   "parsedAt": "2026-10-08T16:01:13",
+   "options": [],
+   "subcommands": [
+    {
+     "name": "clone",
+     "desc": "克隆仓库到一个新目录"
+    },
+    {
+     "name": "init",
+     "desc": "创建一个空的 Git 仓库或重新初始化一个已存在的仓库"
+    },
+    {
+     "name": "add",
+     "desc": "添加文件内容至索引"
+    },
+    {
+     "name": "mv",
+     "desc": "移动或重命名一个文件、目录或符号链接"
+    },
+    {
+     "name": "restore",
+     "desc": "恢复工作区文件"
+    },
+    {
+     "name": "rm",
+     "desc": "从工作区和索引中删除文件"
+    },
+    {
+     "name": "bisect",
+     "desc": "通过二分查找定位引入 bug 的提交"
+    },
+    {
+     "name": "diff",
+     "desc": "显示提交之间、提交和工作区之间等的差异"
+    },
+    {
+     "name": "grep",
+     "desc": "输出和模式匹配的行"
+    },
+    {
+     "name": "log",
+     "desc": "显示提交日志"
+    },
+    {
+     "name": "show",
+     "desc": "显示各种类型的对象"
+    },
+    {
+     "name": "status",
+     "desc": "显示工作区状态"
+    },
+    {
+     "name": "branch",
+     "desc": "列出、创建或删除分支"
+    },
+    {
+     "name": "commit",
+     "desc": "记录变更到仓库"
+    },
+    {
+     "name": "merge",
+     "desc": "合并两个或更多开发历史"
+    },
+    {
+     "name": "rebase",
+     "desc": "在另一个分支上重新应用提交"
+    },
+    {
+     "name": "reset",
+     "desc": "重置当前 HEAD 到指定状态"
+    },
+    {
+     "name": "switch",
+     "desc": "切换分支"
+    },
+    {
+     "name": "tag",
+     "desc": "创建、列出、删除或校验一个 GPG 签名的标签对象"
+    },
+    {
+     "name": "fetch",
+     "desc": "从另外一个仓库下载对象和引用"
+    },
+    {
+     "name": "pull",
+     "desc": "获取并整合另外的仓库或一个本地分支"
+    },
+    {
+     "name": "push",
+     "desc": "更新远程引用和相关的对象"
+    }
+   ]
+  },
+  "clone": {
+   "exe": "git",
+   "channel": [
+    "clone",
+    "-h"
+   ],
+   "rc": 129,
+   "grade": "full",
+   "dialect": "usage-posix",
+   "raw_sha256": "ef2c9bb01ce9bd1b43b5cf22efba4f8f9d6e11fa2d55dc630da2baed718a0d4a",
+   "raw_bytes": 2370,
+   "raw_head": "用法：git clone [<选项>] [--] <仓库> [<路径>]\n\n    -v, --verbose         更加详细\n    -q, --quiet           更加安静\n    --progress            强制显示进度报告\n    --reject-shallow      不克隆浅仓库\n    -n, --no-checkout     不创建一个检出\n    --bare                创建一个纯仓库\n    --mirror              创建一个镜像仓库（也是纯仓库）\n    -l, --local           从本地仓库克隆\n    --no-hardlinks        不使用本地硬链接，始终复制\n    -s, --shared          设置为共享仓库\n    --recurse-submodules[=<路径规格>]\n                          在克隆时初始化子模组\n    --recursive[=<路径规格>]\n                          --recurse-submodules 的别名\n    -j, --jobs <n>        并发克隆的子模组的数量\n    --template <模板目录>\n                          模板目录将被使用\n    --reference <仓库>    参考仓库\n    --reference-if-able <仓库>\n                          参考仓库\n    --dissociate          仅在克隆时参考 --reference 指向的本地仓库\n    -o, --origin <名称>   使用 <名称> 而不是 'origin' 去跟踪上游\n    -b, --branch <分支>   检出 <分支> 而不是远程 HEAD\n    -u, --upload-pack <路径>\n                          远程 git-upload-pack 路径\n    --depth <深度>        创建一个指定深度的浅克隆\n    --shallow-since <时间>\n                          从一个特定时间创建一个浅克隆\n    --shallow-exclude <版本>\n                          深化浅克隆的历史，除了特定版本\n    --single-branch       只克隆一个分支、HEAD 或 --branch\n    --no-tags             不要克隆任何标签，并且后续获取操作也不下载它们\n    --shallow-submodules  子模组将以浅下载模式克隆\n    --separate-git-dir <git目录>\n                          git目录和工作区分离\n    -c, --config <key=value>\n                          在新仓库中设置配置信息\n    --server-option <server-specific>\n                          传输选项\n    -4, --ipv4            只使用 IPv4 地址\n    -6, --ipv6            只使用 IPv6 地址\n    --filter <参数>       对象过滤\n    --remote-submodules   任何克隆的子模组将使用它们的远程跟踪分支\n    --sparse              初始化稀疏检出文件，只包含根目录文件\n\n",
+   "parsedAt": "2026-10-08T16:29:31",
+   "options": [
+    {
+     "names": [
+      "-v",
+      "--verbose"
+     ],
+     "takes_value": false,
+     "desc": "更加详细",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--verbose",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-q",
+      "--quiet"
+     ],
+     "takes_value": false,
+     "desc": "更加安静",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--quiet",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--progress"
+     ],
+     "takes_value": false,
+     "desc": "强制显示进度报告",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--progress",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--reject-shallow"
+     ],
+     "takes_value": false,
+     "desc": "不克隆浅仓库",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--reject-shallow",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-n",
+      "--no-checkout"
+     ],
+     "takes_value": false,
+     "desc": "不创建一个检出",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--no-checkout",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--bare"
+     ],
+     "takes_value": false,
+     "desc": "创建一个纯仓库",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--bare",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--mirror"
+     ],
+     "takes_value": false,
+     "desc": "创建一个镜像仓库（也是纯仓库）",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--mirror",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-l",
+      "--local"
+     ],
+     "takes_value": false,
+     "desc": "从本地仓库克隆",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--local",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--no-hardlinks"
+     ],
+     "takes_value": false,
+     "desc": "不使用本地硬链接，始终复制",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--no-hardlinks",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-s",
+      "--shared"
+     ],
+     "takes_value": false,
+     "desc": "设置为共享仓库",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--shared",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--recurse-submodules"
+     ],
+     "takes_value": true,
+     "desc": "在克隆时初始化子模组",
+     "value_token": "[=<路径规格>]",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "未确定：help 未给出足够信息，可右键改成其它控件类型",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--recurse-submodules",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--recursive"
+     ],
+     "takes_value": true,
+     "desc": "",
+     "value_token": "[=<路径规格>]",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "未确定：help 未给出足够信息，可右键改成其它控件类型",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--recursive",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--recurse-submodules"
+     ],
+     "takes_value": false,
+     "desc": "的别名",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--recurse-submodules",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-j",
+      "--jobs"
+     ],
+     "takes_value": true,
+     "desc": "并发克隆的子模组的数量",
+     "value_token": "<n>",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "未确定：help 未给出足够信息，可右键改成其它控件类型",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--jobs",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--template"
+     ],
+     "takes_value": true,
+     "desc": "模板目录将被使用",
+     "value_token": "<模板目录>",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "未确定：help 未给出足够信息，可右键改成其它控件类型",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--template",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--reference"
+     ],
+     "takes_value": true,
+     "desc": "参考仓库",
+     "value_token": "<仓库>",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "未确定：help 未给出足够信息，可右键改成其它控件类型",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--reference",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--reference-if-able"
+     ],
+     "takes_value": true,
+     "desc": "参考仓库",
+     "value_token": "<仓库>",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "未确定：help 未给出足够信息，可右键改成其它控件类型",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--reference-if-able",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--dissociate",
+      "--reference"
+     ],
+     "takes_value": false,
+     "desc": "指向的本地仓库",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--dissociate",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-o",
+      "--origin"
+     ],
+     "takes_value": true,
+     "desc": "使用 <名称> 而不是 'origin' 去跟踪上游",
+     "value_token": "<名称>",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "未确定：help 未给出足够信息，可右键改成其它控件类型",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--origin",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-b",
+      "--branch"
+     ],
+     "takes_value": true,
+     "desc": "检出 <分支> 而不是远程 HEAD",
+     "value_token": "<分支>",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "未确定：help 未给出足够信息，可右键改成其它控件类型",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--branch",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-u",
+      "--upload-pack"
+     ],
+     "takes_value": true,
+     "desc": "远程 git-upload-pack 路径",
+     "value_token": "<路径>",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "未确定：help 未给出足够信息，可右键改成其它控件类型",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--upload-pack",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--depth"
+     ],
+     "takes_value": true,
+     "desc": "创建一个指定深度的浅克隆",
+     "value_token": "<深度>",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "未确定：help 未给出足够信息，可右键改成其它控件类型",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--depth",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--shallow-since"
+     ],
+     "takes_value": true,
+     "desc": "从一个特定时间创建一个浅克隆",
+     "value_token": "<时间>",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "未确定：help 未给出足够信息，可右键改成其它控件类型",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--shallow-since",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--shallow-exclude"
+     ],
+     "takes_value": true,
+     "desc": "深化浅克隆的历史，除了特定版本",
+     "value_token": "<版本>",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "未确定：help 未给出足够信息，可右键改成其它控件类型",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--shallow-exclude",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--single-branch",
+      "--branch"
+     ],
+     "takes_value": false,
+     "desc": "",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--single-branch",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--no-tags"
+     ],
+     "takes_value": false,
+     "desc": "不要克隆任何标签，并且后续获取操作也不下载它们",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--no-tags",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--shallow-submodules"
+     ],
+     "takes_value": false,
+     "desc": "子模组将以浅下载模式克隆",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--shallow-submodules",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--separate-git-dir"
+     ],
+     "takes_value": true,
+     "desc": "git目录和工作区分离",
+     "value_token": "<git目录>",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "未确定：help 未给出足够信息，可右键改成其它控件类型",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--separate-git-dir",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-c",
+      "--config"
+     ],
+     "takes_value": true,
+     "desc": "在新仓库中设置配置信息",
+     "value_token": "<key=value>",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "未确定：help 未给出足够信息，可右键改成其它控件类型",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--config",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--server-option"
+     ],
+     "takes_value": true,
+     "desc": "传输选项",
+     "value_token": "<server-specific>",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "未确定：help 未给出足够信息，可右键改成其它控件类型",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--server-option",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--ipv4"
+     ],
+     "takes_value": false,
+     "desc": "只使用 IPv4 地址",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--ipv4",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--ipv6"
+     ],
+     "takes_value": false,
+     "desc": "只使用 IPv6 地址",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--ipv6",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--filter"
+     ],
+     "takes_value": true,
+     "desc": "对象过滤",
+     "value_token": "<参数>",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "未确定：help 未给出足够信息，可右键改成其它控件类型",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--filter",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--remote-submodules"
+     ],
+     "takes_value": false,
+     "desc": "任何克隆的子模组将使用它们的远程跟踪分支",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--remote-submodules",
+     "negatable": false
+    },
+    {
+     "names": [
+      "--sparse"
+     ],
+     "takes_value": false,
+     "desc": "初始化稀疏检出文件，只包含根目录文件",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--sparse",
+     "negatable": false
+    },
+    {
+     "names": [],
+     "takes_value": true,
+     "desc": "位置参数 <仓库>",
+     "value_token": "<仓库>",
+     "required": "required",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "位置参数：usage 行里出现，必按顺序传",
+     "repeatable": false,
+     "group": null,
+     "position": 0,
+     "key": "@0",
+     "negatable": false
+    },
+    {
+     "names": [],
+     "takes_value": true,
+     "desc": "位置参数 <路径>",
+     "value_token": "<路径>",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "位置参数：usage 行里出现，必按顺序传",
+     "repeatable": false,
+     "group": null,
+     "position": 1,
+     "key": "@1",
+     "negatable": false
+    }
+   ],
+   "subcommands": []
+  }
+ },
+ "notes": {},
+ "activeProfile": "默认",
+ "profiles": {
+  "默认": {
+   "note": "",
+   "createdAt": "2026-10-08T16:01:13",
+   "values": {},
+   "updatedAt": "2026-10-08T16:01:13"
+  }
+ }
+}
