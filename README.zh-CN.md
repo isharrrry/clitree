@@ -68,6 +68,8 @@ python3 -m clitree --dump-rules                 # 打印生效规则（默认规
 1. **解析是「块模型」，不是逐行正则。** 选项名和说明常常分处两行（`pnpm -v, --version` 与下一行的说明），
    续行里还可能再出现 `--delete` 这种词（tar）——CliTree 按「块」合并，续行不会变成新参数。
    细节见 [解析规则](docs/parsing-rules.zh-CN.md)。
+   所有解析行为都写在 `clitree/rules/default.rules.json` 里（每条规则旁记录它的实测依据），
+   你自己的覆盖写 `~/.config/clitree/rules.user.json`，改完用 `python3 -m clitree --check-rules` 自检。
 2. **必填口径**：usage 行存在时，**选项一律算可选**（不传也能跑），只有**位置参数**分必填/可选；
    连 usage 都没有时才显示「？未判定」。必填项与位置参数会被排在表单最前面。
 3. **配置即文件**：`cli/<工具名>.json` 一个文件里装**解析结果缓存** ＋ **多个配置** ＋ **你自己的参数说明**。
@@ -106,6 +108,21 @@ xvfb-run -a python3 tools/make_screenshots.py     # 重新生成 14 张界面截
 
 本机实测环境：Python 3.10.12 ＋ PyQt5 5.15.6；测试在 `QT_QPA_PLATFORM=offscreen` 下运行。
 开发约定与「哪些东西没验证」写在 [contributing](docs/contributing.zh-CN.md)。
+
+## 本机验证记录（实测）
+
+| 项 | 读数 |
+|---|---|
+| 测试 | `python3 -m pytest -q` ⇒ **158 passed**（解析 27 条真机 fixture、控件推断、通道安全、懒加载、执行器、配置文件、GUI 冒烟） |
+| 真 CLI 解析 | `ping` 33 项参数（`-c` 数值、`-M` 下拉 `do/dont/want`、`-I` 路径、`-D` 开关）｜`git` 22 个子命令｜`tar` 166 个参数｜`curl --help all` 244 个参数｜`gdb` 走交互通道拿到 **111 781 B**（它的 `--help` 只有 3 071 B） |
+| 懒加载 | `--tree git` ⇒ 根已解析、22 个子命令全部 `pending`；同一节点重复展开 **0 次**新增探测 |
+| 缓存与配置 | 第二个窗口加载 `ping` ⇒ **探测 0 次**（直接走缓存）；配置切换、另存为、说明两层均实测，见 [配置](docs/configuration.zh-CN.md) |
+| 三模式 | 后台 `ping -c 2 127.0.0.1` ⇒ 日志 **+6 行**、按钮 `ok`；静默执行同一命令 ⇒ 日志 **+0 行**、按钮 `ok`；执行中 `ping -c 30` 再点一次 ⇒ 状态 `stopped` |
+| 安全 | 24 条危险命令在任何入口被拒（加载 `/sbin/shutdown` ⇒ 树与表单为空 ＋ 状态栏写明理由） |
+| 规则自检 | `python3 -m clitree --check-rules` ⇒ `RULES-CHECK=PASS`（12/12 正则可在 Python 下编译） |
+| 全部截图 | `xvfb-run -a python3 tools/make_screenshots.py` ⇒ **14 张**（offscreen 与真 X 渲染两种都跑过） |
+
+取数环境：Ubuntu 22.04 ＋ Python 3.10.12 ＋ PyQt5 5.15.6。**表格里没有一行是估计值**；取不到的项一律写进 [已知限制](#已知限制如实列出) 与 [参与开发](docs/contributing.zh-CN.md)。
 
 ## 已知限制（如实列出）
 

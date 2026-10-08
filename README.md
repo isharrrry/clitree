@@ -1,130 +1,161 @@
-# CliTree — CLI 参数树可视化执行器
+# CliTree — turn command-line tools into a clickable argument tree
 
-把任意命令行工具变成**可点选的参数树**：拖进一个可执行文件（或在顶部输入命令）→ 点「加载」→
-左边出树、右边按参数形态出控件、下面三个按钮分别用「新终端 / 后台 / 静默」方式执行，按钮图标记住上次成败。
+**English** | [中文](README.zh-CN.md) | [Español](README.es.md)
 
-不需要你记 `--help`，也不需要在命令行里敲。
+> Drag in an executable (or type a command) → click **Load** → the argument tree appears on the left,
+> widgets shaped to each parameter appear on the right, and the three buttons below run it as a
+> **new-terminal / background / silent** run. No need to memorize `--help`, no need to type in a shell.
 
-## 跑起来
+Cross-platform (Windows / Linux / macOS), pure Python + PyQt5; the only dependencies are the system Python and Qt.
+
+![Argument panel after loading ping](screenshots/01-load-ping-widgets.png)
+
+## What problem it solves
+
+A command-line tool's usage hides inside its `help`: parameter names are abbreviations only, the
+description is one line, you must read the usage line yourself to tell what is required, and enum
+values are scattered through the prose. CliTree **parses all of that into structured data** and
+renders it as an operable interface:
+
+- **Argument tree**: the command's own parameters plus its first-level subcommands; **a subcommand's
+  help is only probed when you open it**, not all at once;
+- **Widgets shaped to each parameter**: a parameter that takes no value gets a **checkbox**, one with a
+  fixed value set gets an **editable dropdown**, numbers get a number box, paths get a "Browse…"
+  button, repeatable ones get a multi-value list; every parameter shows **full name + short name +
+  value placeholder** and the **original help text**;
+- **Notes can be rewritten as your own**: double-click the note line to edit it — it is written into
+  the configuration file and is still there next time;
+- **Three execution modes**: run in a real terminal / run in the background with output streamed back
+  into this window / silent run (cursor only, no log). While running, the button turns into
+  "■ Stop" and a second click terminates the process; each button's icon remembers its own last result;
+- **Profiles are reusable**: one configuration file per tool, holding **multiple profiles**
+  (parameter values for different machines or scenarios) and a cached parse result — **loading the
+  same tool again does not have to run `help` at all**.
+
+## Quick start
 
 ```bash
-cd /home/links-dev/netTest/GitProj/clitree
-python3 -m clitree                 # 开 GUI
-python3 -m clitree git             # 开 GUI 并直接加载 git
-python3 -m clitree --parse ping    # 不开窗，直接把解析结果显示出来
-python3 -m clitree --parse --help-file tests/fixtures/help/tar.help.txt
-python3 -m clitree --tree git      # 连树一起打印（会真去探测）
-python3 -m clitree --check-rules   # 校验规则文件
-python3 -m clitree --dump-rules    # 打印生效规则（默认 ＋ 你的覆盖）
+git clone <your repository URL> clitree && cd clitree
+
+# only the system Python (>=3.9) and PyQt5 are needed
+python3 -c "import PyQt5" || python3 -m pip install --user PyQt5
+
+python3 -m clitree                # open the GUI
+python3 -m clitree git            # open the GUI and load git right away
 ```
 
-无头机器上没有 `DISPLAY` 时，GUI 会明确告诉你改用什么命令，不会抛 Qt 崩溃。
+On a headless machine (no `DISPLAY`), use `xvfb-run -a python3 -m clitree` to open the window;
+if you don't want a window at all, use the parse mode directly (see below).
 
-依赖：系统 `python3`（≥3.9）＋ **PyQt5**（本机已装 5.15.6）。Qt 只在 `clitree/ui/qt.py` 里被 import，
-以后要换 PySide6 只改那一个文件。
+## Interface at a glance
 
-## 界面怎么用
+| Only 2 levels after loading | Probing happens when you open a subcommand | Many profiles on one machine | Notes can be rewritten as your own |
+|---|---|---|---|
+| ![two levels](screenshots/05-git-two-levels-collapsed.png) | ![expanded](screenshots/06-git-clone-expanded.png) | ![profiles](screenshots/11-cli-profiles.png) | ![notes](screenshots/13-custom-note.png) |
 
-| 位置 | 说明 |
-|---|---|
-| 顶部 | 输入 CLI（或把可执行文件**拖进窗口**）→「加载」；「全量展开」把子命令一次性展开到上限 |
-| 左树 | **加载只出 2 层**：本 CLI 的参数 ＋ 一级子命令。**点开某个子命令才会去跑它的 help**（再点一次命中缓存，不会重复探测）。根节点旁显示 `分支 N · 参数 K` |
-| 右表单 | **位置参数置顶 → 必填 → 其它按 help 原顺序**；按**参数形态**给控件：无取值 ⇒ **勾选框 ＋ help 解释**；有固定取值 ⇒ **可编辑下拉**；数值 ⇒ 数值框；路径 ⇒ 文本框＋浏览；`--[no-]x` ⇒ 三态；可重复 ⇒ 多值列表。标签给出**全称＋简称＋取值占位**（如 `-c, --count <count>`），每条参数**下方常显一行灰字 help 说明**（不再只藏在悬停里），可选项不打标记、只有**真必填**才显示 `＊必填`，连 usage 都没有时才显示 `？未判定` |
-| 右键标签 | 可以**改控件类型**：纠正会写进 `~/.config/clitree/rules.user.json`，**下次加载同一 CLI 自动生效**（不动随包规则） |
-| 底部三按钮 | **新终端执行**：开一个真终端窗口跑（拿不到子进程 rc ⇒ 只标「已在终端启动」，不谎报成功）／**后台执行**：stdout+stderr 实时进本窗日志区／**静默执行**：只把鼠标变 busy，**不产生任何日志**。按钮图标分别记住各自上次的结果；**执行中按钮变「■ 停止」，再点一次即终止该进程**（后台/静默可停；新终端模式拿不到句柄），停止后标「已停止」 |
+| Background output goes into this window | Silent run writes not one line | A running job can be stopped | Dangerous commands are refused |
+|---|---|---|---|
+| ![background](screenshots/02-run-background-log-ok.png) | ![silent](screenshots/03-run-silent-zero-log.png) | ![stop](screenshots/09-running-stop-button.png) | ![safety](screenshots/08-dangerous-refused.png) |
 
-## 配置文件：`cli/<工具名>.json`（一个文件里多个配置）
+All 14 screenshots live in [`screenshots/`](screenshots) and can be regenerated with
+`xvfb-run -a python3 tools/make_screenshots.py`.
 
-加载某个 CLI 时，程序会在**程序目录下的 `cli/`** 生成 `cli/<工具名>.json`（如 `cli/ping.json`），
-里面同时装**解析结果缓存**和**多个配置**：
+## Command-line usage
 
-```jsonc
-{
-  "schema": 1,
-  "cli": "ping",
-  "targets": {                       // 每个被解析过的命令路径一份缓存（"" = 根命令）
-    "": { "channel": ["--help"], "rc": 2, "grade": "full", "dialect": "usage-posix",
-          "raw_sha256": "…", "raw_bytes": 1866, "raw_head": "…", "parsedAt": "…",
-          "options": [ /* 参数树本体 */ ], "subcommands": [ /* 一级子命令 */ ] },
-    "clone": { /* 子命令 git clone 的那一份 */ }
-  },
-  "notes": {                       // ★ 你自己的参数说明（文件级：对本 CLI 所有配置生效）
-    "-c": "我常用 2；外网改 1，别超过 5"
-  },
-  "activeProfile": "回环两次",
-  "profiles": {                      // ★ 一个文件里的多个配置
-    "默认":     { "values": {} },
-    "回环两次": { "values": { "@0": "127.0.0.1", "-c": "2" } },
-    "外网五次": { "note": "外网", "values": { "@0": "8.8.8.8", "-c": "5" },
-                  "notes": { "-c": "外网限速，用 1" } }   // 配置级说明（覆盖文件级）
-  }
-}
+Beyond the GUI, CliTree also works as a parser (handy for scripting and for debugging rules):
+
+```bash
+python3 -m clitree --parse ping                 # really probe ping and print the parse result
+python3 -m clitree --parse --help-file help.txt # parse a help text file directly
+python3 -m clitree --tree git                   # also print the tree (root parsed, subcommands pending)
+python3 -m clitree --check-rules                # validate the rules file (bad JSON / bad regex is reported)
+python3 -m clitree --dump-rules                 # print the effective rules (defaults + your overrides)
 ```
 
-右侧顶部一行就是配置栏：`配置： [下拉] [保存] [新配置名] [另存为…] [删除] [重新解析]`。
+## Four core concepts
 
-- **下次加载同一个 CLI 时不再跑 help**：有缓存就直接把参数树和表单渲染出来（状态栏写明"已从缓存载入…解析于 …"），
-  想刷新就点**「重新解析」**（它才会去跑 `--help` 并覆盖缓存）。
-- **切换配置**：下拉一选，右侧所有参数值换成那个配置的（切走前当前值会自动存回原配置，不会丢）。
-- **另存为**：把当前参数值复制成一个**新配置并起名**（旧配置不受影响）。
-- **写时机**：每次解析成功（根命令或你点开的子命令）自动更新缓存；点「保存」把当前值写进当前配置。
-- 程序目录不可写时（只读安装）自动回退到用户配置目录，不会崩。
-- **参数说明**：加载时缓存里已带 help 原文说明；**双击说明那一行**就能改成你自己的说明
-  （显示成 `✎ 你的说明　（原：help 原文）`，一眼分得出哪句是你写的）。清空即回到 help 原文。
-  说明分两层：**文件级 `notes`**（双击默认写这里，对本 CLI 所有配置生效）与**配置级 `notes`**（只对该配置生效，优先）。
-- ⚠️ `cli/` 已加进 `.gitignore`（里面可能存有你的主机名/路径等参数值）。要跟着版本走就把那行删掉。
+1. **Parsing is a "block model", not a per-line regex.** An option name and its description often live
+   on two lines (`pnpm -v, --version` with the description on the next line), and a continuation line
+   may even contain a word such as `--delete` (tar) — CliTree merges by *block*, so a continuation
+   never becomes a new parameter. Details in [Parsing rules](docs/parsing-rules.md).
+   All parsing behaviour lives in `clitree/rules/default.rules.json` (every rule carries the
+   measurement behind it), your overrides go to `~/.config/clitree/rules.user.json`, and
+   `python3 -m clitree --check-rules` validates the result.
 
-## 安全
+2. **The required/optional rule**: when a usage line exists, **options always count as optional**
+   (they can simply be omitted) and only **positional arguments** are split into required/optional;
+   only when there is no usage line at all does the UI show "? undetermined". Required parameters and
+   positional arguments are sorted to the top of the form.
+3. **A profile is a file**: `cli/<tool-name>.json` holds a **parse-result cache** + **multiple profiles** +
+   **your own parameter notes** in one file. The next time you load the same tool it is rendered from
+   the cache without running `help`. See [Configuration](docs/configuration.md).
+4. **Execution goes through argv only**: parameters are handed to the child process as a list and
+   **shell strings are never assembled**; platform quoting is applied only when opening a new
+   terminal. See [Execution modes](docs/execution-modes.md).
 
-- **危险命令永不探测、永不执行**：`shutdown/reboot/halt/poweroff/init/mkfs*/dd/fdisk/parted/mkswap/passwd/…`（24 条，见规则文件）。
-- **`-h` 只在 `--help` 文本里声明过它时才跑**（`sort -h`、`df -h` 不是 help）。
-- 探测一律：`stdin` 关闭 ＋ `PAGER/MANPAGER/GIT_PAGER/SYSTEMD_PAGER=cat`（防分页挂起）＋ 单通道 5 s 超时 ＋ 256 KB 输出上限。
-- **执行时参数以 argv 列表直传，绝不拼 shell 字符串**；写进新终端时才做 POSIX/Windows 引号转义。
+## Safety
 
-## 规则（可迭代的单一真相源）
+- **Dangerous commands are never probed and never executed**: `shutdown` / `reboot` / `mkfs*` / `dd` /
+  `fdisk` / `passwd` and 24 commands in total are refused at every entry point (drag-in, typed input,
+  cache, execution) with the reason spelled out;
+- **`-h` is only run when the `--help` text declares it** (because `sort -h` and `df -h` are not help);
+- Every probe closes stdin and sets `PAGER/MANPAGER/GIT_PAGER/SYSTEMD_PAGER=cat` (so paging can never
+  hang it), with a 5-second timeout per channel and a 256 KB output cap;
+- Opening a new terminal escapes with `shlex.quote` (POSIX) or the Windows quoting rules.
 
-`clitree/rules/default.rules.json`（严格 JSON）保存：方言识别、help 通道与安全白/黑名单、段落词表、
-选项块正则、控件推断词表与枚举表、子命令策略、`evidence`（下面这些实测数字的来源）。
+## Documentation
 
-你的改动写进 `~/.config/clitree/rules.user.json`，浅合并覆盖到默认规则之上。改完跑 `--check-rules`，
-语法或正则写坏会直接报出来（非 0 退出）。
+Like the README, the documentation comes in **English / Chinese / Spanish**. Entry point:
+[documentation index](docs/index.md).
 
-## 界面截图
-
-`screenshots/` 里有 14 张真机截图，可用 `xvfb-run -a python3 tools/make_screenshots.py` 重新生成：
-
-| 图 | 展示什么 |
+| To learn about | Read |
 |---|---|
-| `01-load-ping-widgets.png` | ping 的 33 个参数：勾选框、数值框（空值显示「（不传）」） |
-| `01b-combo-and-path.png` | `-M` 可编辑下拉（候选 `do/dont/want`）、`-I` 文本框＋「浏览…」 |
-| `02-run-background-log-ok.png` | 后台执行 `ping -c 2 127.0.0.1`：输出实时进日志区，按钮变**绿色对勾** |
-| `03-run-silent-zero-log.png` | 静默执行同命令：日志 **一行都没加**，按钮同样变对勾 |
-| `04-run-fail-icon.png` | 失败一次后按钮变**红色叉**（静默按钮仍是绿勾 ⇒ 三个按钮各自记状态） |
-| `05-git-two-levels-collapsed.png` | git 加载后只有 2 层：一级子命令全部标「未展开」 |
-| `06-git-clone-expanded.png` | 点开 `clone` 后才探测，右侧出现 clone 自己的 37 个参数（含位置参数 `<仓库>`/`<路径>`） |
-| `07-tar-many-params.png` | tar 一次解析出上百个参数（多别名如 `-A, --catenate, --concatenate`） |
-| `08-dangerous-refused.png` | `/sbin/shutdown` 被安全策略拦住：不探测、不执行，状态栏给出理由 |
-| `09-running-stop-button.png` | 执行中：按钮变成 **`■ 停止`**，日志区正在滚 ping 的输出 |
-| `10-stopped-state.png` | 再点一次后：进程被终止，按钮回到模式名并标「已停止」 |
-| `11-cli-profiles.png` | 配置栏：`外网五次` 选中，值 = `8.8.8.8` / `5`；同一文件里还躺着 `回环两次`、`默认` |
-| `12-profile-switched.png` | 切到 `回环两次` 后值变成 `127.0.0.1` / `2`（切走前旧值自动存回） |
-| `13-custom-note.png` | 参数说明改成自己的：`✎ 我常用 2；外网改 1…` ＋ 括号里保留 help 原文 |
+| Architecture, module responsibilities, data flow | [architecture](docs/architecture.md) |
+| How help is parsed, how to edit the rules file | [parsing-rules](docs/parsing-rules.md) |
+| The complete format of `cli/<tool-name>.json` | [configuration](docs/configuration.md) |
+| The three execution modes and stop semantics | [execution-modes](docs/execution-modes.md) |
+| Contributing, running tests, generating screenshots | [contributing](docs/contributing.md) |
+| Module dependencies (auto-generated) | [DEPENDENCY-TREE](docs/DEPENDENCY-TREE.md) |
 
-## 本机验证记录（全部实测，不是估计）
+## Development
 
-| 项 | 读数 |
+```bash
+python3 -m pytest -q                              # 158 tests
+python3 tools/deps_tree.py                        # regenerate the dependency tree
+xvfb-run -a python3 tools/make_screenshots.py     # regenerate the 14 screenshots
+```
+
+Measured on this machine: Python 3.10.12 + PyQt5 5.15.6; the tests run under
+`QT_QPA_PLATFORM=offscreen`. Development conventions and "what has not been verified" are in
+[contributing](docs/contributing.md).
+
+## Measured verification
+
+| Item | Reading |
 |---|---|
-| 单元/集成测试 | `python3 -m pytest` ⇒ **158 passed**（解析 27 条 fixture、控件推断、通道安全、懒加载、执行器、GUI 冒烟） |
-| 真 CLI 解析 | `ping` ⇒ 32 参数（`-c` 数值、`-M` 下拉 `do/dont/want`、`-I` 路径、`-D` 开关）｜`git` ⇒ 22 子命令｜`tar` 166 块｜`curl --help all` 244 块｜`gdb` 交互式 `help all` 走专用通道（`--help` 只有 3 071 B，`help all` 有 111 781 B） |
-| 懒加载 | `--tree git` ⇒ 根 `loaded` ＋ 22 个子命令 **全部 `pending`**（未探测）；展开同一节点第二次 **0 次新增探测** |
-| 三模式（offscreen ＋ xvfb 各跑一遍） | 后台执行 `ping -c 1 127.0.0.1` ⇒ **新增 6 行日志、按钮 `ok`**；静默执行同命令 ⇒ **新增 0 行日志、按钮 `ok`**；新终端执行 ⇒ 按钮 `launched`（本机无 DISPLAY，窗口是否真的起来未验证） |
-| 截图 | xvfb 下 1200×780 真渲染（树/参数区/三按钮/日志区/状态栏齐备） |
-| 规则自检 | `--check-rules` ⇒ `RULES-CHECK=PASS`；12/12 正则可编译 |
+| Tests | `python3 -m pytest -q` ⇒ **158 passed** (27 real help fixtures, widget inference, probe safety, lazy loading, executor, configuration files, GUI smoke) |
+| Real CLI parsing | `ping` 33 parameters (`-c` numeric, `-M` dropdown `do/dont/want`, `-I` path, `-D` checkbox)｜`git` 22 subcommands｜`tar` 166 parameters｜`curl --help all` 244 parameters｜`gdb` through its interactive channel: **111 781 B** (its `--help` is only 3 071 B) |
+| Lazy loading | `--tree git` ⇒ root parsed, all 22 subcommands `pending`; expanding the same node twice adds **0** extra probes |
+| Cache and profiles | A second window loading `ping` performs **0 probes** (straight from the cache); profile switching, save-as and both note levels are covered in [configuration](docs/configuration.md) |
+| Three modes | Background `ping -c 2 127.0.0.1` ⇒ **+6 log lines**, button `ok`; silent run of the same command ⇒ **+0 log lines**, button `ok`; clicking again during `ping -c 30` ⇒ state `stopped` |
+| Safety | All 24 dangerous commands are refused at every entry point (loading `/sbin/shutdown` leaves the tree and form empty and states the reason in the status bar) |
+| Rules self-check | `python3 -m clitree --check-rules` ⇒ `RULES-CHECK=PASS` (12/12 regexes compile under Python) |
+| Screenshots | `xvfb-run -a python3 tools/make_screenshots.py` ⇒ **14 images** (both offscreen and real-X rendering were used) |
 
-### 已知限制（如实列出）
+Environment: Ubuntu 22.04, Python 3.10.12, PyQt5 5.15.6. **No row in this table is an estimate**; anything not measured is listed under [Known limitations](#known-limitations-listed-honestly) and in [contributing](docs/contributing.md).
 
-- **Windows / macOS 未在本机验证**（无该平台机器）：`/?`、`-?` 通道、`cmd start`/`osascript` 开终端、打包都只是代码就位，**未实测**。
-- **枚举取值多数抽不到**（105 条真命令实测，help 里显式写集合的只有 `ping` 2 处）⇒ 下拉框默认可编辑，抽不到就不造候选。
-- **子命令段抽取不可靠**（pnpm 91 条为真、`git help -a` 141 条、中文 git 22 条；但 lsblk 这类"列名段"必须靠兜底条件挡掉）⇒ 初始只出 2 层，展开才探测。
-- 新终端模式**拿不到子进程 rc**，所以它永远显示「已启动」而不是「成功」。
-- 位置参数只从 usage 行抽取，多组位置参数/嵌套 usage 的支持有限。
+## Known limitations (listed honestly)
+
+- **Windows / macOS are not verified on this machine**: the `/?` and `-?` channels, opening a terminal
+  via `cmd start` / `osascript`, and packaging exist only as code;
+- **Most enum values cannot be extracted**: out of 105 real commands, only `ping` spells a value set
+  out in its help (two places) — so dropdowns are always editable and no candidates are invented;
+- **Subcommand-section extraction is unreliable**: `pnpm`'s 91 entries are real, while `lsblk`'s column
+  section has to be blocked by a fallback condition — that is why only 2 levels are produced on load
+  and probing happens on expansion;
+- **The new-terminal mode cannot obtain the child's exit code**: it therefore only shows "launched in
+  terminal", never judges success or failure, and cannot be stopped.
+
+## License
+
+[MIT](LICENSE).
