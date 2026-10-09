@@ -58,6 +58,31 @@ def test_dangerous_value_stays_one_argv_element():
     assert len(argv) == 3
 
 
+def test_build_argv_appends_extra_box_split_on_whitespace():
+    """「其他输入」（@extra）按空白拆开、追加到 argv 最后。"""
+    argv = E.build_argv("fakecli", node_with_fakecli(),
+                        {"@0": "host1", "@extra": "--flag  value2"})
+    assert argv == ["fakecli", "host1", "--flag", "value2"]
+
+
+# ---- 输出解码（Windows 实测：narnat 输出 UTF-8，ping 的中文帮助是 GBK）----
+
+def test_decode_line_prefers_utf8_then_gbk():
+    assert E.decode_line("你好".encode("utf-8")) == "你好"
+    assert E.decode_line("你好".encode("gbk")) == "你好"
+    assert "\ufffd" in E.decode_line(b"\xff\xfe")
+
+
+def test_background_decodes_mixed_utf8_and_gbk_lines(fakecli):
+    lines, done = [], []
+    h = E.Runner().start_background([PY, fakecli, "--emit-utf8", "--emit-gbk"],
+                                    on_line=lines.append, on_done=done.append)
+    h.wait(timeout=10)
+    assert done[0].state == "ok" and done[0].rc == 0
+    assert any("utf8 你好" in l for l in lines), lines
+    assert any("gbk 你好" in l for l in lines), lines
+
+
 # ---- 三模式 ----
 
 def test_background_streams_lines(fakecli):

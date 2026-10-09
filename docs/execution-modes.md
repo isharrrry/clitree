@@ -48,12 +48,16 @@ Parameters are always handed to the child process as a **list**:
 
 ```python
 argv = build_argv(exe, node, values)
-# example: {"--verbose": True, "--count": "3", "--output": "a b; rm -rf /", "@0": "host"}
-#   ⇒ ["ping", "--verbose", "--count", "3", "--output", "a b; rm -rf /", "host"]
+# example: {"--verbose": True, "--count": "3", "--output": "a b; rm -rf /", "@0": "host",
+#           "@extra": "--tail 1"}
+#   ⇒ ["ping", "--verbose", "--count", "3", "--output", "a b; rm -rf /", "host",
+#      "--tail", "1"]
 ```
 
 A value such as `a b; rm -rf /` **stays one single argv element** and is never interpreted as a command
-separator (a test pins this down).
+separator (a test pins this down). The one exception is the "extra input" box (`@extra`) at the bottom
+of the form: it is split on whitespace and **appended at the very end of argv**, for parameters the
+help does not cover.
 
 Only the "open a new terminal" path needs a command line, and that is the only place where escaping
 happens: POSIX uses `shlex.join`, Windows wraps in `"…"` and escapes inner quotes.
@@ -67,6 +71,7 @@ How `build_argv` turns form state into argv:
 | Has a value | Two elements, `name value`, are passed |
 | Repeatable (multi-value list) | Each value is passed once as `name value` |
 | Positional argument | Appended at the end in order (without a name) |
+| "Extra input" box (`@extra`) | Split on whitespace and appended at the very end of argv (for ad-hoc parameters) |
 
 ## Dangerous commands: two interception points
 

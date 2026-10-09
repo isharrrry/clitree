@@ -54,6 +54,14 @@ def main(argv):
         sys.stdout.write("FAKECLI FAILING argv=%s\n" % " ".join(argv))
         sys.stderr.write("fakecli: deliberate failure\n")
         return 3
+    if "--emit-utf8" in argv or "--emit-gbk" in argv:
+        # 编码探针（Windows 实测：narnat 输出 UTF-8，ping 的中文帮助是 GBK）
+        if "--emit-utf8" in argv:
+            sys.stdout.buffer.write("FAKECLI utf8 你好\n".encode("utf-8"))
+        if "--emit-gbk" in argv:
+            sys.stdout.buffer.write("FAKECLI gbk 你好\n".encode("gbk"))
+        sys.stdout.buffer.flush()
+        return 0
     out = sys.stdout
     if "--to-stderr" in argv:
         out = sys.stderr

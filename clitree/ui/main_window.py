@@ -230,8 +230,9 @@ class MainWindow(qt.QMainWindow):
         prof = PF.get_profile(self.cli_name, name, self.profile_root)
         for key in list(self.form.order()):
             self.form.set_value(key, "")
+        self.form.set_extra_text("")             # 「其他输入」一并复位，随后按配置载入
         for key, val in (prof.get("values") or {}).items():
-            self.form.set_value(key, val)
+            self.form.set_value(key, val)        # "@extra" 由 ParamForm.set_value 特判
 
     def _on_profile_selected(self, name: str) -> None:
         if not name:

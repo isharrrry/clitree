@@ -230,6 +230,25 @@ def test_load_writes_cache_file(tmp_path, qapp, fakecli):
         w.close()
 
 
+def test_extra_box_saved_and_restored_per_profile(tmp_path, qapp, fakecli):
+    """「其他输入」属于配置的一部分：保存/切换都跟着走，并追加到 argv 末尾。"""
+    w = make_win(tmp_path, ProbeRecorder())
+    try:
+        w.load_command(fakecli)
+        w.tree.select_node([])
+        w.form.set_extra_text("--tail 1")
+        assert w.form.values().get("@extra") == "--tail 1"
+        assert w._argv()[1:] == ["--tail", "1"], w._argv()
+        w.save_as_profile("带附加")
+        assert PF.get_profile("fakecli", "带附加", tmp_path)["values"]["@extra"] == "--tail 1"
+        w.switch_profile("默认")
+        assert w.form.extra_text() == ""
+        w.switch_profile("带附加")
+        assert w.form.extra_text() == "--tail 1"
+    finally:
+        w.close()
+
+
 def test_second_load_uses_cache_and_does_not_probe(tmp_path, qapp, fakecli):
     w1 = make_win(tmp_path, ProbeRecorder())
     w1.load_command(fakecli)

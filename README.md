@@ -90,8 +90,9 @@ python3 -m clitree --dump-rules                 # print the effective rules (def
    **your own parameter notes** in one file. The next time you load the same tool it is rendered from
    the cache without running `help`. See [Configuration](docs/configuration.md).
 4. **Execution goes through argv only**: parameters are handed to the child process as a list and
-   **shell strings are never assembled**; platform quoting is applied only when opening a new
-   terminal. See [Execution modes](docs/execution-modes.md).
+   **shell strings are never assembled**; the "extra input" box at the bottom of the form is split on
+   whitespace and appended to the end of the command. Platform quoting is applied only when opening a
+   new terminal. See [Execution modes](docs/execution-modes.md).
 
 ## Safety
 

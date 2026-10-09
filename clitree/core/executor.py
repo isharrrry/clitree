@@ -10,6 +10,24 @@ from . import terminals
 
 FALSEY = {"0", "false", "off", "no", "none", ""}
 
+# 表单最末尾「其他输入」在 values 里的键：内容按空白拆开、追加到命令末尾
+EXTRA_KEY = "@extra"
+
+
+def decode_line(raw: bytes) -> str:
+    """子进程输出逐行解码：先 UTF-8，再 GBK，最后替换兜底（绝不抛异常）。
+
+    实测：`narnat` 输出 UTF-8（0xe4 0xbd 0xa0 = 你），而 Windows 的 ping 中文帮助是
+    GBK —— 固定任一种都会炸（曾报 "gbk codec can't decode byte 0x80"）。
+    按 \\n 切行不会切坏多字节字符：两种编码的多字节序列都不含 0x0A。
+    """
+    for enc in ("utf-8", "gbk"):
+        try:
+            return raw.decode(enc)
+        except UnicodeDecodeError:
+            continue
+    return raw.decode("utf-8", errors="replace")
+
 
 @dataclass
 class RunResult:
@@ -58,7 +76,10 @@ class RunHandle:
 
 
 def build_argv(exe: str, node, values: dict) -> list[str]:
-    """把表单值变成 argv 列表。**绝不拼接 shell 字符串。**"""
+    """把表单值变成 argv 列表。**绝不拼接 shell 字符串。**
+
+    「其他输入」（EXTRA_KEY）按空白拆开后追加到 argv 最后。
+    """
     argv = [exe]
     values = values or {}
 
@@ -94,6 +115,10 @@ def build_argv(exe: str, node, values: dict) -> list[str]:
             continue
         argv.append(str(val))
 
+    extra = values.get(EXTRA_KEY)
+    if isinstance(extra, str) and extra.strip():
+        argv.extend(extra.split())
+
     return argv
 
 
@@ -102,16 +127,18 @@ class Runner:
 
     def start_background(self, argv, on_line=None, on_done=None) -> RunHandle:
         started = time.time()
+        # 不用 text=True：Windows 上它取 locale 编码（GBK），而子进程可能输出 UTF-8
+        # （narnat 实测）——逐行走 decode_line，两种都认
         proc = subprocess.Popen(list(argv), stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-                                stdin=subprocess.DEVNULL, text=True, bufsize=1)
+                                stdin=subprocess.DEVNULL, bufsize=0)
         handle = RunHandle(argv=list(argv), state="running", proc=proc, event=threading.Event())
 
         def pump():
             try:
                 if proc.stdout is not None:
-                    for line in proc.stdout:
+                    for raw in proc.stdout:
                         if on_line:
-                            on_line(line.rstrip("\n"))
+                            on_line(decode_line(raw).rstrip("\r\n"))
                 rc = proc.wait()
             except Exception as exc:  # pragma: no cover
                 rc = -1

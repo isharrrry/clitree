@@ -1,6 +1,7 @@
 """参数表单：按参数形态出控件；每条参数常显 help 说明；必填项排前面。"""
 from . import qt
 from ..core import store
+from ..core.executor import EXTRA_KEY
 from ..core.model import ParamSpec
 
 MODE_LABELS = [
@@ -46,6 +47,7 @@ class ParamForm(qt.QWidget):
         self._note_edits: dict = {}
         self._custom_notes: dict = {}
         self._on_kind_changed = on_kind_changed
+        self._extra_edit = None
         self.cli_name = ""
         self._area = qt.QScrollArea()
         self._area.setWidgetResizable(True)
@@ -86,6 +88,7 @@ class ParamForm(qt.QWidget):
     # ---------------------------------------------------------------- 构建
     def build(self, specs: list, cli_name: str = "") -> None:
         self.cli_name = cli_name
+        keep_extra = self.extra_text()          # 重建不丢「其他输入」
         self._specs = self.sort_specs(list(specs))
         self._widgets, self._rows, self._labels = {}, {}, {}
         self._kinds, self._descs, self._marks = {}, {}, {}
@@ -97,18 +100,37 @@ class ParamForm(qt.QWidget):
                 w.setParent(None)
         if not self._specs:
             self._form.addRow(qt.QLabel("（该节点没有可填参数）"))
-            return
-        for spec in self._specs:
-            widget = self._make_widget(spec)
-            row = self._make_row(spec, widget)
-            label = self._make_label(spec)
-            self._form.addRow(label, row)
-            self._widgets[spec.key] = widget
-            self._rows[spec.key] = row
-            self._labels[spec.key] = label
-            self._kinds[spec.key] = spec.widget
-            self._descs[spec.key] = spec.desc or ""
-            self._marks[spec.key] = REQUIRED_MARK.get(spec.required, "")
+        else:
+            for spec in self._specs:
+                widget = self._make_widget(spec)
+                row = self._make_row(spec, widget)
+                label = self._make_label(spec)
+                self._form.addRow(label, row)
+                self._widgets[spec.key] = widget
+                self._rows[spec.key] = row
+                self._labels[spec.key] = label
+                self._kinds[spec.key] = spec.widget
+                self._descs[spec.key] = spec.desc or ""
+                self._marks[spec.key] = REQUIRED_MARK.get(spec.required, "")
+        self._build_extra_row(keep_extra)
+
+    def _build_extra_row(self, keep: str = "") -> None:
+        """表单最末尾的「其他输入」：按空白拆成额外参数，追加到命令末尾一起执行。"""
+        self._extra_edit = qt.QLineEdit(keep)
+        self._extra_edit.setPlaceholderText("要追加到命令末尾的内容；多个参数用空格分开")
+        self._extra_edit.setToolTip("这里的内容按空格拆开，作为额外参数追加到命令末尾一起执行（跟着当前配置保存）")
+        label = qt.QLabel("其他输入　（追加到命令末尾）")
+        label.setWordWrap(True)
+        label.setToolTip(self._extra_edit.toolTip())
+        self._form.addRow(label, self._extra_edit)
+
+    def extra_text(self) -> str:
+        """「其他输入」框的内容（空框返回空串）。"""
+        return self._extra_edit.text().strip() if self._extra_edit is not None else ""
+
+    def set_extra_text(self, text) -> None:
+        if self._extra_edit is not None:
+            self._extra_edit.setText("" if text is None else str(text))
 
     def _make_label(self, spec: ParamSpec) -> qt.QLabel:
         text = self.display_name(spec)
@@ -238,6 +260,9 @@ class ParamForm(qt.QWidget):
             if spec.repeatable and isinstance(val, str):
                 val = [x.strip() for x in val.split(",") if x.strip()]
             out[spec.key] = val
+        extra = self.extra_text()
+        if extra:
+            out[EXTRA_KEY] = extra
         return out
 
     # ---------------------------------------------------------------- 测试/GUI 接口
@@ -319,6 +344,9 @@ class ParamForm(qt.QWidget):
         return [s.key for s in self._specs]
 
     def set_value(self, key: str, value) -> None:
+        if key == EXTRA_KEY:                  # 「其他输入」不在 specs 里，单独存取
+            self.set_extra_text(value if isinstance(value, str) else "")
+            return
         w = self._widgets.get(key)
         if value is None or value == "":          # 清空（切配置时先把所有值复位）
             if isinstance(w, qt.QCheckBox):

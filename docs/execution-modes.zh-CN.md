@@ -48,11 +48,15 @@ RunHandle.stop()  →  terminate()  →  等最多 3 秒  →  仍在 ⇒ kill()
 
 ```python
 argv = build_argv(exe, node, values)
-# 例：{"--verbose": True, "--count": "3", "--output": "a b; rm -rf /", "@0": "host"}
-#   ⇒ ["ping", "--verbose", "--count", "3", "--output", "a b; rm -rf /", "host"]
+# 例：{"--verbose": True, "--count": "3", "--output": "a b; rm -rf /", "@0": "host",
+#      "@extra": "--tail 1"}
+#   ⇒ ["ping", "--verbose", "--count", "3", "--output", "a b; rm -rf /", "host",
+#      "--tail", "1"]
 ```
 
 `a b; rm -rf /` 这样的值**仍然是单个 argv 元素**，不会被解释成命令分隔符（有测试锁死这一条）。
+表单最末尾的「其他输入」（`@extra`）是唯一的例外：按空白拆开后**追加到 argv 最后**，用于临时补充
+help 里没写到的参数。
 
 只有「开新终端」这条路上需要拼一行命令，那时才做转义：
 POSIX 用 `shlex.join`，Windows 用 `"…"` 包裹并转义内部引号。
@@ -66,6 +70,7 @@ POSIX 用 `shlex.join`，Windows 用 `"…"` 包裹并转义内部引号。
 | 有取值 | 传 `名字 值` 两个元素 |
 | 可重复（多值列表） | 每个值各传一次 `名字 值` |
 | 位置参数 | 按顺序追加在最后（不带名字） |
+| 「其他输入」（`@extra`） | 按空白拆开，追加到 argv 最后（临时补充参数用） |
 
 ## 危险命令：两道拦截
 

@@ -1,0 +1,154 @@
+{
+ "schema": 1,
+ "cli": "narnat",
+ "updatedAt": "2026-10-09T09:43:28",
+ "targets": {
+  "": {
+   "exe": "narnat",
+   "channel": [
+    "--help"
+   ],
+   "rc": 0,
+   "grade": "full",
+   "dialect": "usage-posix",
+   "raw_sha256": "dd31b339b289c978df8438c3ebef92c5837ac28753d7910d5f7d608627d81eb0",
+   "raw_bytes": 662,
+   "raw_head": "usage: narnat.exe [-h] [-d] [-v] [-p PROMPT] [-g GOAL_ROUNDS] [-l]\n\nNarnat Agent - 代码智能体\n\noptions:\n  -h, --help            show this help message and exit\n  -d, --debug           调试模式，记录详细日志\n  -v, --version         显示版本号\n  -p PROMPT, --prompt PROMPT\n                        headless模式：执行一次性任务后退出（纯文本输出）\n  -g GOAL_ROUNDS, --goal-rounds GOAL_ROUNDS\n                        headless模式：自动续跑轮数上限（默认用配置值，-p 时生效）\n  -l, --tool-log        headless模式：显示详细工具调度日志（默认仅输出AI最终答复文本，-p 时生效）\n",
+   "parsedAt": "2026-10-09T09:43:28",
+   "options": [
+    {
+     "names": [
+      "-h",
+      "--help"
+     ],
+     "takes_value": false,
+     "desc": "show this help message and exit",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--help",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-d",
+      "--debug"
+     ],
+     "takes_value": false,
+     "desc": "调试模式，记录详细日志",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--debug",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-v",
+      "--version"
+     ],
+     "takes_value": false,
+     "desc": "显示版本号",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--version",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-p",
+      "--prompt"
+     ],
+     "takes_value": true,
+     "desc": "headless模式：执行一次性任务后退出（纯文本输出）",
+     "value_token": "PROMPT",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "未确定：help 未给出足够信息，可右键改成其它控件类型",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--prompt",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-g",
+      "--goal-rounds"
+     ],
+     "takes_value": true,
+     "desc": "headless模式：自动续跑轮数上限（默认用配置值，-p 时生效）",
+     "value_token": "GOAL_ROUNDS",
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "text",
+     "widget_reason": "未确定：help 未给出足够信息，可右键改成其它控件类型",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--goal-rounds",
+     "negatable": false
+    },
+    {
+     "names": [
+      "-l",
+      "--tool-log",
+      "-p"
+     ],
+     "takes_value": false,
+     "desc": "时生效）",
+     "value_token": null,
+     "required": "optional",
+     "default": null,
+     "example": null,
+     "choices": null,
+     "widget": "checkbox",
+     "widget_reason": "判为开关：该参数在 help 里未标注任何取值",
+     "repeatable": false,
+     "group": null,
+     "position": null,
+     "key": "--tool-log",
+     "negatable": false
+    }
+   ],
+   "subcommands": []
+  }
+ },
+ "notes": {},
+ "activeProfile": "默认",
+ "profiles": {
+  "默认": {
+   "note": "",
+   "createdAt": "2026-10-09T09:43:28",
+   "values": {},
+   "updatedAt": "2026-10-09T09:43:28"
+  }
+ }
+}

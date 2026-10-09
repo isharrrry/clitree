@@ -21,12 +21,20 @@ verification table).
   now recognised; compact descriptions such as `-v verbose output` are still left alone.
 - A full `pytest` run no longer drops a `fakecli.json` into the real `cli/` directory
   (`test_widget_override_persists` was missing its `profile_root`).
+- **Child output decoding**: the background runner used to decode output with the locale codec (GBK on
+  a Chinese Windows), which blew up on UTF-8 output such as `narnat`'s
+  (`gbk codec can't decode byte 0x80 …`). Output is now decoded line by line — UTF-8 first, then GBK,
+  then replacement — and the help-probe channel uses the same rule (its `help` text can be UTF-8 or
+  GBK too).
 
 ### Added
 
 - Fixtures `windows-ping.h.txt` and `windows-ping.zh.h.txt` (the Chinese one extracted from the local
   `zh-CN\ping.exe.mui`), with tests covering both English and Chinese Windows help.
 - `--parse` now prints a `POSITIONALS=` count and the positional-argument lines.
+- An **"extra input" box** at the bottom of the parameter form: its content is split on whitespace and
+  appended to the end of the command (stored per profile as `@extra`), for parameters the help does not
+  cover.
 
 ## 0.2.0
 

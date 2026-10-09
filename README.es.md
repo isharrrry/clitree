@@ -91,7 +91,8 @@ python3 -m clitree --dump-rules                 # 打印生效规则（默认规
    análisis** ＋ **varios perfiles** ＋ **tus propias notas de argumentos**. La próxima vez que cargues la misma
    herramienta se usa directamente la caché, sin ejecutar help. Ver [Configuración](docs/configuration.es.md).
 4. **La ejecución solo usa argv**: los argumentos se entregan al proceso hijo como lista, **nunca se compone una
-   cadena de shell**; solo al abrir una terminal nueva se aplica el escape de comillas de la plataforma.
+   cadena de shell**; el cuadro «otra entrada» al final del formulario se divide por espacios y se añade al
+   final del comando; solo al abrir una terminal nueva se aplica el escape de comillas de la plataforma.
    Ver [Modos de ejecución](docs/execution-modes.es.md).
 
 ## Seguridad

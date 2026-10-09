@@ -8,6 +8,7 @@ import subprocess
 import sys
 from dataclasses import dataclass, field
 
+from .executor import decode_line
 from .parser import grade_of
 
 NEVER_GUESS_DASH_H_FALLBACK = ["sort", "df", "du", "free", "ls", "watch", "ps", "top", "kill",
@@ -67,9 +68,9 @@ def _default_runner(cmd: str, args: list[str], timeout: float):
     env = dict(os.environ)
     env.update({"PAGER": "cat", "MANPAGER": "cat", "GIT_PAGER": "cat", "SYSTEMD_PAGER": "cat"})
     try:
-        proc = subprocess.run(_argv_for(cmd, args), capture_output=True, text=True,
+        proc = subprocess.run(_argv_for(cmd, args), capture_output=True,
                               timeout=timeout, stdin=subprocess.DEVNULL, env=env)
-        out = (proc.stdout or "") + (proc.stderr or "")
+        out = _decode_output((proc.stdout or b"") + (proc.stderr or b""))
         return proc.returncode, out
     except subprocess.TimeoutExpired:
         return 124, ""
@@ -77,6 +78,16 @@ def _default_runner(cmd: str, args: list[str], timeout: float):
         return 127, f"not found: {exc}"
     except Exception as exc:  # pragma: no cover - 兜底，绝不抛给 UI
         return 126, f"error: {exc}"
+
+
+def _decode_output(raw: bytes) -> str:
+    """整段输出解码：逐行试探编码（UTF-8 → GBK → 替换），再把 CRLF 折成 \\n。
+
+    和 executor.decode_line 同一条实测依据：help 文本也可能是 UTF-8（新版工具）
+    或 GBK（Windows 自带工具），不能固定取 locale 编码。
+    """
+    text = "\n".join(decode_line(line) for line in raw.split(b"\n"))
+    return text.replace("\r\n", "\n").replace("\r", "\n")
 
 
 def _usable(text: str, rules: dict) -> bool:

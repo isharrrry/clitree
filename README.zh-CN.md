@@ -75,7 +75,8 @@ python3 -m clitree --dump-rules                 # 打印生效规则（默认规
 3. **配置即文件**：`cli/<工具名>.json` 一个文件里装**解析结果缓存** ＋ **多个配置** ＋ **你自己的参数说明**。
    下次加载同一工具直接用缓存，不跑 help。详见 [配置](docs/configuration.zh-CN.md)。
 4. **执行只走 argv**：参数以列表直接交给子进程，**绝不拼 shell 字符串**；
-   开新终端时才做平台引号转义。详见 [执行模式](docs/execution-modes.zh-CN.md)。
+   表单末尾的「其他输入」会按空格拆开、追加到命令末尾；开新终端时才做平台引号转义。
+   详见 [执行模式](docs/execution-modes.zh-CN.md)。
 
 ## 安全
 

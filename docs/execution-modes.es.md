@@ -50,12 +50,15 @@ Los argumentos se entregan siempre al proceso hijo como **lista**:
 
 ```python
 argv = build_argv(exe, node, values)
-# 例：{"--verbose": True, "--count": "3", "--output": "a b; rm -rf /", "@0": "host"}
-#   ⇒ ["ping", "--verbose", "--count", "3", "--output", "a b; rm -rf /", "host"]
+# 例：{"--verbose": True, "--count": "3", "--output": "a b; rm -rf /", "@0": "host",
+#      "@extra": "--tail 1"}
+#   ⇒ ["ping", "--verbose", "--count", "3", "--output", "a b; rm -rf /", "host",
+#      "--tail", "1"]
 ```
 
 Un valor como `a b; rm -rf /` **sigue siendo un único elemento de argv** y no se interpreta como separador de
-comandos (hay una prueba que lo fija).
+comandos (hay una prueba que lo fija). La única excepción es el cuadro «otra entrada» (`@extra`) al final del
+formulario: se divide por espacios y **se añade al final del argv**, para parámetros que el help no cubre.
 
 Solo en el camino de «abrir terminal nueva» hay que componer una línea de comando, y solo entonces se aplica el
 escape: en POSIX con `shlex.join`, en Windows envolviendo en `"…"` y escapando las comillas internas.
@@ -69,6 +72,7 @@ Reglas de valor de `build_argv`:
 | Con valor | Se pasan dos elementos `名字 值` |
 | Repetible (lista multivalor) | Cada valor se pasa una vez como `名字 值` |
 | Argumento posicional | Se añade al final en orden (sin nombre) |
+| Cuadro «otra entrada» (`@extra`) | Se divide por espacios y se añade al final del argv (parámetros ad hoc) |
 
 ## Comandos peligrosos: dos barreras
 
