@@ -102,7 +102,7 @@ python3 -m clitree --dump-rules                 # 打印生效规则（默认规
 ## 开发
 
 ```bash
-python3 -m pytest -q                              # 165 项测试（160 通过；5 项平台差异项见「已知限制」）
+python3 -m pytest -q                              # 169 项测试（164 通过；5 项平台差异项见「已知限制」）
 python3 tools/deps_tree.py                        # 重新生成依赖关系树
 xvfb-run -a python3 tools/make_screenshots.py     # 重新生成 14 张界面截图
 ```
@@ -114,7 +114,7 @@ xvfb-run -a python3 tools/make_screenshots.py     # 重新生成 14 张界面截
 
 | 项 | 读数 |
 |---|---|
-| 测试 | `python3 -m pytest -q` ⇒ **160 passed**（解析 29 条真机 fixture、控件推断、通道安全、懒加载、执行器、配置文件、GUI 冒烟；其余 5 项为平台差异项，见「已知限制」） |
+| 测试 | `python3 -m pytest -q` ⇒ **164 passed**（解析 29 条真机 fixture、控件推断、通道安全、懒加载、执行器、配置文件、GUI 冒烟；其余 5 项为平台差异项，见「已知限制」） |
 | 真 CLI 解析 | `ping` 33 项参数（`-c` 数值、`-M` 下拉 `do/dont/want`、`-I` 路径、`-D` 开关）｜`git` 22 个子命令｜`tar` 166 个参数｜`curl --help all` 244 个参数｜`gdb` 走交互通道拿到 **111 781 B**（它的 `--help` 只有 3 071 B） |
 | Windows 实测（2026-10） | Windows 11 ＋ Python 3.14.6 ＋ PyQt5 5.15.11：`ping` 解析出 18 项参数（裸词位置参数 `target_name` 必填、数字选项 `-4`/`-6`、`-n` 数值框）；`ping -n 2 127.0.0.1` 端到端执行 ⇒ rc=0 收到回显；英文与中文（zh-CN）两版帮助都已入库为 fixture |
 | 懒加载 | `--tree git` ⇒ 根已解析、22 个子命令全部 `pending`；同一节点重复展开 **0 次**新增探测 |

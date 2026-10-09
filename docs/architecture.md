@@ -11,7 +11,7 @@ clitree/
 ├── core/      pure logic: parsing, rules, widget inference, probing, lazy loading, execution, persistence   ← does not import Qt
 ├── ui/        the Qt interface; **ui/qt.py is the only file that imports Qt**
 ├── rules/     default.rules.json (the single source of truth for parsing rules)
-tests/         165 tests (including the offscreen GUI smoke tests)
+tests/         169 tests (including the offscreen GUI smoke tests)
 tools/         scripts that generate the dependency tree / the screenshots
 cli/           one configuration file per tool (cache + multiple profiles + your notes)
 ```

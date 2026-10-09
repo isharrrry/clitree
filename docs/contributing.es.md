@@ -14,7 +14,7 @@
 
 ```bash
 python3 -c "import PyQt5" || python3 -m pip install --user PyQt5
-python3 -m pytest -q                 # 165 pruebas (160 pasan; 5 específicas de plataforma)
+python3 -m pytest -q                 # 169 pruebas (164 pasan; 5 específicas de plataforma)
 ```
 
 **No crear un venv** (medido en esta máquina: `python3 -m ensurepip` no existe ⇒ el venv no tiene pip, y además

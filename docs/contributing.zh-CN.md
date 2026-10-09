@@ -14,7 +14,7 @@
 
 ```bash
 python3 -c "import PyQt5" || python3 -m pip install --user PyQt5
-python3 -m pytest -q                 # 165 项（160 通过；5 项平台差异项）
+python3 -m pytest -q                 # 169 项（164 通过；5 项平台差异项）
 ```
 
 **不要建 venv**（本机实测：`python3 -m ensurepip` 不存在 ⇒ venv 里没有 pip，

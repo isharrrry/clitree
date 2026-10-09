@@ -128,9 +128,11 @@ class Runner:
     def start_background(self, argv, on_line=None, on_done=None) -> RunHandle:
         started = time.time()
         # 不用 text=True：Windows 上它取 locale 编码（GBK），而子进程可能输出 UTF-8
-        # （narnat 实测）——逐行走 decode_line，两种都认
+        # （narnat 实测）——逐行走 decode_line，两种都认。
+        # 用默认读缓冲：bufsize=0 的原始 FileIO 会按字节 readline，输出一多 syscall 就爆炸；
+        # 带缓冲的 readline 仍是「读到 \n 即返回」，实时性不变。
         proc = subprocess.Popen(list(argv), stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-                                stdin=subprocess.DEVNULL, bufsize=0)
+                                stdin=subprocess.DEVNULL)
         handle = RunHandle(argv=list(argv), state="running", proc=proc, event=threading.Event())
 
         def pump():

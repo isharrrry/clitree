@@ -121,7 +121,7 @@ Like the README, the documentation comes in **English / Chinese / Spanish**. Ent
 ## Development
 
 ```bash
-python3 -m pytest -q                              # 165 tests (160 pass; 5 are platform-specific — see Known limitations)
+python3 -m pytest -q                              # 169 tests (164 pass; 5 are platform-specific — see Known limitations)
 python3 tools/deps_tree.py                        # regenerate the dependency tree
 xvfb-run -a python3 tools/make_screenshots.py     # regenerate the 14 screenshots
 ```
@@ -134,7 +134,7 @@ Measured environments: Python 3.10.12 + PyQt5 5.15.6 (Linux) and Python 3.14.6 +
 
 | Item | Reading |
 |---|---|
-| Tests | `python3 -m pytest -q` ⇒ **160 passed** (29 real help fixtures, widget inference, probe safety, lazy loading, executor, configuration files, GUI smoke; the other 5 are platform-specific — see [Known limitations](#known-limitations-listed-honestly)) |
+| Tests | `python3 -m pytest -q` ⇒ **164 passed** (29 real help fixtures, widget inference, probe safety, lazy loading, executor, configuration files, GUI smoke; the other 5 are platform-specific — see [Known limitations](#known-limitations-listed-honestly)) |
 | Real CLI parsing | `ping` 33 parameters (`-c` numeric, `-M` dropdown `do/dont/want`, `-I` path, `-D` checkbox)｜`git` 22 subcommands｜`tar` 166 parameters｜`curl --help all` 244 parameters｜`gdb` through its interactive channel: **111 781 B** (its `--help` is only 3 071 B) |
 | Windows, measured locally (2026-10) | Windows 11 + Python 3.14.6 + PyQt5 5.15.11: `ping` parses to 18 parameters (bare-word positional `target_name` required, numeric `-4`/`-6`, `-n` as a number box); `ping -n 2 127.0.0.1` runs end-to-end ⇒ rc=0, replies received; both the English and the Chinese (`zh-CN`) help are covered by fixtures |
 | Lazy loading | `--tree git` ⇒ root parsed, all 22 subcommands `pending`; expanding the same node twice adds **0** extra probes |

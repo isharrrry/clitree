@@ -122,7 +122,7 @@ La documentación, igual que el README, tiene **tres idiomas: inglés / chino / 
 ## Desarrollo
 
 ```bash
-python3 -m pytest -q                              # 165 pruebas (160 pasan; 5 específicas de plataforma — ver Limitaciones conocidas)
+python3 -m pytest -q                              # 169 pruebas (164 pasan; 5 específicas de plataforma — ver Limitaciones conocidas)
 python3 tools/deps_tree.py                        # 重新生成依赖关系树
 xvfb-run -a python3 tools/make_screenshots.py     # 重新生成 14 张界面截图
 ```
@@ -135,7 +135,7 @@ Entornos medidos: Python 3.10.12 ＋ PyQt5 5.15.6 (Linux) y Python 3.14.6 ＋ Py
 
 | Elemento | Lectura |
 |---|---|
-| Pruebas | `python3 -m pytest -q` ⇒ **160 passed** (29 fixtures de help reales, inferencia de controles, seguridad del sondeo, carga diferida, ejecutor, archivos de configuración, smoke de GUI; las otras 5 son específicas de plataforma — ver [limitaciones conocidas](#limitaciones-conocidas-enumeradas-con-honestidad)) |
+| Pruebas | `python3 -m pytest -q` ⇒ **164 passed** (29 fixtures de help reales, inferencia de controles, seguridad del sondeo, carga diferida, ejecutor, archivos de configuración, smoke de GUI; las otras 5 son específicas de plataforma — ver [limitaciones conocidas](#limitaciones-conocidas-enumeradas-con-honestidad)) |
 | Análisis de CLI reales | `ping` 33 parámetros (`-c` numérico, `-M` lista `do/dont/want`, `-I` ruta, `-D` casilla)｜`git` 22 subcomandos｜`tar` 166 parámetros｜`curl --help all` 244 parámetros｜`gdb` por su canal interactivo: **111 781 B** (su `--help` solo tiene 3 071 B) |
 | Windows, medido en local (2026-10) | Windows 11 ＋ Python 3.14.6 ＋ PyQt5 5.15.11: `ping` se analiza en 18 parámetros (posicional de palabra simple `target_name` obligatorio, `-4`/`-6` numéricos, `-n` como campo numérico); `ping -n 2 127.0.0.1` se ejecuta de extremo a extremo ⇒ rc=0, se reciben respuestas; la ayuda en inglés y en chino (zh-CN) está cubierta por fixtures |
 | Carga diferida | `--tree git` ⇒ raíz analizada y los 22 subcomandos en `pending`; expandir el mismo nodo dos veces añade **0** sondeos |
