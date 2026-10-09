@@ -64,9 +64,13 @@
 规则要点（都在 `clitree/rules/default.rules.json` 的 `optionBlock` 段）：
 
 - `joinContinuation: true` ＋ `continuationMinExtraIndent: 2`：缩进更深的行并入上一块；
-- `nameToken`：`--[A-Za-z][\w-]*` 或 `-[A-Za-z][\w-]*` —— **必须支持单横线长名**（GNU 的 `-pass-exit-codes`）；
+- `nameToken`：`--[A-Za-z][\w-]*` 或 `-[A-Za-z0-9][\w-]*` —— **必须支持单横线长名**（GNU 的 `-pass-exit-codes`）
+  与**数字短选项**（Windows ping 的 `-4`/`-6`、curl 的 `-0`…`-3`）；
 - `valueToken` 要求**紧贴参数名**：`-c <count>` 是取值，而
   `-d      use SO_DEBUG socket option` 里的 `SO_DEBUG` 只是描述里的词（曾误判成取值，已修）；
+- **Windows 布局的取值**：名字与取值**仅隔 1 个空格**、取值后是 2+ 空格或「1 空格＋大写/中文开头的描述」
+  （`-n count       Number…`、`-c compartment Routing…`、`-c compartment 路由…`）——这才让 `-n` 成为数值框
+  而不是无值开关、拼出的命令才是对的；`-v verbose output` 这类紧凑描述不满足条件 ⇒ 不会被误吃；
 - `--[no-]color` 形态会被归一成 `--color` 并标记为「三态」。
 
 段落标题用**结构判定优先 ＋ 词表兜底**：标题是开放集合（实测除了 `options`/`usage` 还有
@@ -93,6 +97,13 @@
 
 这条口径是修出来的：`ping [options] <destination>` 只有位置参数落在必填位置，
 早期实现把「选项没被 usage 提到」当成「未标注」，结果 ping 的 32 个选项全挂 `[未标注]`。
+
+**位置参数有两种写法**（都是实测）：① 尖括号占位（`<destination>`、中文 `[<路径>]`，POSIX 惯例）；
+② 整条 usage 里**没有尖括号**时，**裸词**也算（Windows ping 的 `… [-4] [-6] target_name`、nc 的
+`[proxy_address] [port]`、mtr 的 `hostname`）。裸词口径会主动挡掉实测过的噪音：与尖括号形态互斥
+（`git clone … [<选项>]` 里的 `clone`）、与命令名同形的词、连接词与 help 子词（rsync 的 `or`、
+ip 的 `{ COMMAND | help }`）、全大写集合占位（`[OPTION...]` 里的 `OPTION`）、以及嵌在
+「内含方括号的方括号组」里的取值结构（ssh 的 `[-D [bind_address:]port]`）。
 
 ## 7. 控件推断顺序
 
@@ -142,7 +153,7 @@ python3 -m clitree --check-rules          # 坏 JSON / 坏正则立刻报出来�
 python3 -m clitree --parse ping
 python3 -m clitree --parse --help-file /tmp/some-tool--help.txt
 
-# 3) 跑回归（fixtures 是 27 条真机 help 文本）
+# 3) 跑回归（fixtures 是 29 条真机 help 文本，含 Windows 中英文两版 ping）
 python3 -m pytest tests/test_parser_blocks.py tests/test_widgets.py -q
 ```
 

@@ -14,7 +14,7 @@
 
 ```bash
 python3 -c "import PyQt5" || python3 -m pip install --user PyQt5
-python3 -m pytest -q                 # 158 items
+python3 -m pytest -q                 # 165 items (160 pass; 5 platform-specific)
 ```
 
 **Do not create a venv** (measured here: `python3 -m ensurepip` does not exist ⇒ a venv has no pip,
@@ -32,7 +32,7 @@ Without a graphical environment (no `DISPLAY` / `WAYLAND_DISPLAY`):
 | File | Coverage |
 |---|---|
 | `tests/test_rules.py` | Rule loading, deep-merging user overrides, reporting bad JSON/bad regex |
-| `tests/test_parser_blocks.py` | The block model, the four dialects, the required/optional rule, parsing all 27 fixtures one by one |
+| `tests/test_parser_blocks.py` | The block model, the four dialects, the required/optional rule, parsing all 29 fixtures one by one |
 | `tests/test_parser_subcommands.py` | The subcommand section (including the `lsblk` column-name false positive and the `git help -a` real count) |
 | `tests/test_widgets.py` | The widget inference order and every exception (`--[no-]`, repeatable, `curl -b` must not become an enum) |
 | `tests/test_discovery.py` | Channel order, untrustworthy rc, dangerous commands refused, man-page fallback, interactive channels |
@@ -41,10 +41,10 @@ Without a graphical environment (no `DISPLAY` / `WAYLAND_DISPLAY`):
 | `tests/test_profiles.py` | `cli/<tool>.json` caching, multiple profiles, the two note levels, fallback, broken files |
 | `tests/test_gui_smoke.py` | Building the window offscreen, load/expand, widget types, double-clicking a note, switching profiles, stop |
 
-`tests/fixtures/help/*.txt` are **27 real help texts** (including Chinese, man pages, argparse,
-two-line blocks and GNU long options); `tests/fixtures/fakecli.py` is a controllable fake CLI (it can
-prescribe exit codes, write to stderr and sleep for a long time). The executor and GUI tests use it —
-**real commands are never used for destructive verification**.
+`tests/fixtures/help/*.txt` are **29 real help texts** (including Chinese, man pages, argparse,
+two-line blocks, GNU long options, and Windows English/Chinese ping); `tests/fixtures/fakecli.py` is a
+controllable fake CLI (it can prescribe exit codes, write to stderr and sleep for a long time). The
+executor and GUI tests use it — **real commands are never used for destructive verification**.
 
 ## Editing the parsing rules
 
@@ -97,8 +97,9 @@ captured from a real machine** — do not hand-write it and do not polish it.
 
 This list exists so that nobody assumes these already hold:
 
-- **Windows / macOS**: the `/?` and `-?` channels, opening a terminal via `cmd start` / `osascript`,
-  PyInstaller packaging — the code is in place, **untested**;
+- **Windows / macOS**: `ping` parsing/execution and the test suite have been exercised on Windows 11
+  (2026-10, see the README table); the `-?` channel, opening a terminal via `cmd start` / `osascript`,
+  and PyInstaller packaging are still **untested**;
 - **Whether the new-terminal mode really pops up a window**: this machine has no graphical
   environment, so all we can read is the button state `launched`;
 - **Packaging**: no PyInstaller packaging verification has been done;

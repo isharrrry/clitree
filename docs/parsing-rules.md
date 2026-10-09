@@ -73,11 +73,17 @@ Rule highlights (all in the `optionBlock` section of `clitree/rules/default.rule
 
 - `joinContinuation: true` plus `continuationMinExtraIndent: 2`: lines indented deeper merge into the
   previous block;
-- `nameToken`: `--[A-Za-z][\w-]*` or `-[A-Za-z][\w-]*` — **single-dash long names must be supported**
-  (GNU's `-pass-exit-codes`);
+- `nameToken`: `--[A-Za-z][\w-]*` or `-[A-Za-z0-9][\w-]*` — **single-dash long names must be supported**
+  (GNU's `-pass-exit-codes`) as well as **numeric short options** (Windows ping's `-4`/`-6`, curl's
+  `-0`…`-3`);
 - `valueToken` must be **adjacent to the parameter name**: `-c <count>` takes a value, whereas the
   `SO_DEBUG` in `-d      use SO_DEBUG socket option` is merely a word in the description
   (it used to be misread as a value; fixed);
+- **The Windows value layout**: the name and the value are separated by **exactly one space** and the
+  value is followed by 2+ spaces or by "1 space + a description starting with an upper-case letter or a
+  CJK character" (`-n count       Number…`, `-c compartment Routing…`, `-c compartment 路由…`) — this
+  is what makes `-n` a number box instead of a value-less checkbox, and the built command stays
+  correct; compact descriptions such as `-v verbose output` do not match and are not swallowed;
 - The `--[no-]color` shape is normalised to `--color` and flagged as "tri-state".
 
 Section titles use **structural detection first, word list as a fallback**: titles are an open set
@@ -108,6 +114,15 @@ open it; there is also an "Expand all" button (capped at 3 levels).
 This rule was earned by fixing a bug: in `ping [options] <destination>` only the positional argument
 falls in the required position, and an early implementation treated "the option is not mentioned in
 usage" as "unmarked", so all 32 ping options ended up carrying `[unmarked]`.
+
+**Positional arguments come in two shapes** (both measured): ① angle-bracket placeholders
+(`<destination>`, Chinese `[<路径>]`, the POSIX convention); ② when the usage line contains **no
+angle brackets at all**, plain **bare words** count too (Windows ping's `… [-4] [-6] target_name`, nc's
+`[proxy_address] [port]`, mtr's `hostname`). The bare-word rule actively keeps measured noise out: it
+is mutually exclusive with angle brackets (`clone` in `git clone … [<选项>]`), words identical to the
+command name, connective/`help` words (rsync's `or`, ip's `{ COMMAND | help }`), all-caps collection
+placeholders (`OPTION` in `[OPTION...]`), and value structures nested in brackets
+(`[-D [bind_address:]port]` in the ssh usage).
 
 ## 7. Widget inference order
 
@@ -160,7 +175,7 @@ python3 -m clitree --check-rules          # bad JSON / bad regex is reported at 
 python3 -m clitree --parse ping
 python3 -m clitree --parse --help-file /tmp/some-tool--help.txt
 
-# 3) run the regression (the fixtures are 27 real help texts)
+# 3) run the regression (the fixtures are 29 real help texts, incl. Windows/Chinese ping)
 python3 -m pytest tests/test_parser_blocks.py tests/test_widgets.py -q
 ```
 

@@ -14,7 +14,7 @@
 
 ```bash
 python3 -c "import PyQt5" || python3 -m pip install --user PyQt5
-python3 -m pytest -q                 # 158 项
+python3 -m pytest -q                 # 165 pruebas (160 pasan; 5 específicas de plataforma)
 ```
 
 **No crear un venv** (medido en esta máquina: `python3 -m ensurepip` no existe ⇒ el venv no tiene pip, y además
@@ -33,7 +33,7 @@ Sin entorno gráfico (sin `DISPLAY` / `WAYLAND_DISPLAY`):
 | Archivo | Cobertura |
 |---|---|
 | `tests/test_rules.py` | Carga de reglas, fusión en profundidad de las sobrescrituras del usuario, detección de JSON y expresiones regulares rotas |
-| `tests/test_parser_blocks.py` | Modelo de bloques, los cuatro dialectos, criterio de obligatoriedad, análisis de las 27 fixtures una a una |
+| `tests/test_parser_blocks.py` | Modelo de bloques, los cuatro dialectos, criterio de obligatoriedad, análisis de las 29 fixtures una a una |
 | `tests/test_parser_subcommands.py` | Sección de subcomandos (incluido el falso positivo de los nombres de columna de `lsblk` y el valor real de `git help -a`) |
 | `tests/test_widgets.py` | Orden de inferencia de controles y cada excepción (`--[no-]`, repetible, `curl -b` no debe clasificarse como enumeración) |
 | `tests/test_discovery.py` | Orden de canales, rc no fiable, comandos peligrosos rechazados, respaldo de páginas man, canales interactivos |
@@ -42,8 +42,8 @@ Sin entorno gráfico (sin `DISPLAY` / `WAYLAND_DISPLAY`):
 | `tests/test_profiles.py` | Caché de `cli/<工具>.json`, varios perfiles, los dos niveles de notas, respaldo, archivos rotos |
 | `tests/test_gui_smoke.py` | Crear la ventana en offscreen, cargar/expandir, tipos de control, doble clic en la nota, cambio de perfil, detener |
 
-`tests/fixtures/help/*.txt` son **27 textos de help reales de máquina** (con formas en chino, páginas man,
-argparse, bloques de dos líneas, opciones largas de GNU, etc.); `tests/fixtures/fakecli.py` es un CLI falso
+`tests/fixtures/help/*.txt` son **29 textos de help reales de máquina** (con formas en chino, páginas man,
+argparse, bloques de dos líneas, opciones largas de GNU, ping de Windows en inglés/chino, etc.); `tests/fixtures/fakecli.py` es un CLI falso
 controlable (permite fijar el código de retorno, escribir en stderr, dormir mucho) que usan las pruebas del
 ejecutor y de la GUI; **nunca se usan comandos reales para verificaciones destructivas**.
 
@@ -97,8 +97,9 @@ original capturado de la máquina real, sin escribirlo a mano ni retocarlo.
 
 Está aquí para que nadie crea que ya se cumple:
 
-- **Windows / macOS**: los canales `/?`, `-?`, abrir terminal con `cmd start` / `osascript` y el empaquetado con
-  PyInstaller — solo tienen el código en su sitio, **sin medir**;
+- **Windows / macOS**: el análisis y la ejecución de `ping` y la suite de pruebas se han ejercitado en Windows 11
+  (2026-10, ver la tabla del README); el canal `-?`, abrir terminal con `cmd start` / `osascript` y el
+  empaquetado con PyInstaller siguen **sin medir**;
 - **Si el modo de terminal nueva abre realmente una ventana**: esta máquina no tiene entorno gráfico, solo se
   puede leer que el botón queda en `launched`;
 - **Empaquetado**: no se ha hecho ninguna verificación de empaquetado con PyInstaller;

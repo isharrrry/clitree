@@ -2,6 +2,32 @@
 
 All notable changes to this project are recorded here.
 
+## Unreleased
+
+Windows help-text support (measured on Windows 11 + Python 3.14.6 + PyQt5 5.15.11 — see the README
+verification table).
+
+### Fixed
+
+- **Positional arguments written as bare words are recognised**: the Windows `ping` usage line
+  (`… [-4] [-6] target_name`) produced no field to enter the ping target. When the usage line contains
+  no `<angle>` groups, bare words now count as positionals; measured noise stays out (`clone` in
+  `git clone …`, `or` in the rsync usage, `help` from `{ COMMAND | help }`, words identical to the
+  command name, and bracket-nested value structures such as `[-D [bind_address:]port]`).
+- **Numeric short options** (`-4`/`-6` of ping, curl's `-0`/`-1`/`-2`/`-3`): the option-name rule now
+  accepts a digit right after the dash.
+- **Windows single-space value layout**: `-n count       Number of echo requests…` used to be read as a
+  value-less switch, so the built command was `ping -n <host>` (an error). The adjacent value token is
+  now recognised; compact descriptions such as `-v verbose output` are still left alone.
+- A full `pytest` run no longer drops a `fakecli.json` into the real `cli/` directory
+  (`test_widget_override_persists` was missing its `profile_root`).
+
+### Added
+
+- Fixtures `windows-ping.h.txt` and `windows-ping.zh.h.txt` (the Chinese one extracted from the local
+  `zh-CN\ping.exe.mui`), with tests covering both English and Chinese Windows help.
+- `--parse` now prints a `POSITIONALS=` count and the positional-argument lines.
+
 ## 0.2.0
 
 Per-tool configuration files, editable parameter notes, stop support, and a documentation set in three languages.

@@ -101,20 +101,21 @@ python3 -m clitree --dump-rules                 # 打印生效规则（默认规
 ## 开发
 
 ```bash
-python3 -m pytest -q                              # 158 项测试
+python3 -m pytest -q                              # 165 项测试（160 通过；5 项平台差异项见「已知限制」）
 python3 tools/deps_tree.py                        # 重新生成依赖关系树
 xvfb-run -a python3 tools/make_screenshots.py     # 重新生成 14 张界面截图
 ```
 
-本机实测环境：Python 3.10.12 ＋ PyQt5 5.15.6；测试在 `QT_QPA_PLATFORM=offscreen` 下运行。
+本机实测环境：Linux 部分 Python 3.10.12 ＋ PyQt5 5.15.6，Windows 部分 Python 3.14.6 ＋ PyQt5 5.15.11；测试在 `QT_QPA_PLATFORM=offscreen` 下运行。
 开发约定与「哪些东西没验证」写在 [contributing](docs/contributing.zh-CN.md)。
 
 ## 本机验证记录（实测）
 
 | 项 | 读数 |
 |---|---|
-| 测试 | `python3 -m pytest -q` ⇒ **158 passed**（解析 27 条真机 fixture、控件推断、通道安全、懒加载、执行器、配置文件、GUI 冒烟） |
+| 测试 | `python3 -m pytest -q` ⇒ **160 passed**（解析 29 条真机 fixture、控件推断、通道安全、懒加载、执行器、配置文件、GUI 冒烟；其余 5 项为平台差异项，见「已知限制」） |
 | 真 CLI 解析 | `ping` 33 项参数（`-c` 数值、`-M` 下拉 `do/dont/want`、`-I` 路径、`-D` 开关）｜`git` 22 个子命令｜`tar` 166 个参数｜`curl --help all` 244 个参数｜`gdb` 走交互通道拿到 **111 781 B**（它的 `--help` 只有 3 071 B） |
+| Windows 实测（2026-10） | Windows 11 ＋ Python 3.14.6 ＋ PyQt5 5.15.11：`ping` 解析出 18 项参数（裸词位置参数 `target_name` 必填、数字选项 `-4`/`-6`、`-n` 数值框）；`ping -n 2 127.0.0.1` 端到端执行 ⇒ rc=0 收到回显；英文与中文（zh-CN）两版帮助都已入库为 fixture |
 | 懒加载 | `--tree git` ⇒ 根已解析、22 个子命令全部 `pending`；同一节点重复展开 **0 次**新增探测 |
 | 缓存与配置 | 第二个窗口加载 `ping` ⇒ **探测 0 次**（直接走缓存）；配置切换、另存为、说明两层均实测，见 [配置](docs/configuration.zh-CN.md) |
 | 三模式 | 后台 `ping -c 2 127.0.0.1` ⇒ 日志 **+6 行**、按钮 `ok`；静默执行同一命令 ⇒ 日志 **+0 行**、按钮 `ok`；执行中 `ping -c 30` 再点一次 ⇒ 状态 `stopped` |
@@ -122,11 +123,11 @@ xvfb-run -a python3 tools/make_screenshots.py     # 重新生成 14 张界面截
 | 规则自检 | `python3 -m clitree --check-rules` ⇒ `RULES-CHECK=PASS`（12/12 正则可在 Python 下编译） |
 | 全部截图 | `xvfb-run -a python3 tools/make_screenshots.py` ⇒ **14 张**（offscreen 与真 X 渲染两种都跑过） |
 
-取数环境：Ubuntu 22.04 ＋ Python 3.10.12 ＋ PyQt5 5.15.6。**表格里没有一行是估计值**；取不到的项一律写进 [已知限制](#已知限制如实列出) 与 [参与开发](docs/contributing.zh-CN.md)。
+取数环境：Ubuntu 22.04 ＋ Python 3.10.12 ＋ PyQt5 5.15.6（Linux 部分）；Windows 11 ＋ Python 3.14.6 ＋ PyQt5 5.15.11（Windows 部分）。**表格里没有一行是估计值**；取不到的项一律写进 [已知限制](#已知限制如实列出) 与 [参与开发](docs/contributing.zh-CN.md)。
 
 ## 已知限制（如实列出）
 
-- **Windows / macOS 未在本机验证**：`/?`、`-?` 通道、`cmd start` / `osascript` 开终端、打包都只有代码就位；
+- **Windows 仅部分实测（2026-10），macOS 未验证**：`ping` 的解析与执行、本机测试套件已在 Windows 11 上跑过（见上表）；`-?` 通道、`cmd start` 开终端、打包仍未验证；
 - **枚举取值多数抽不到**：105 个真实命令里，help 里显式写取值集合的只有 `ping` 两处 ⇒ 下拉框一律可编辑，抽不到就不造候选；
 - **子命令段抽取不可靠**：`pnpm` 91 条为真、`lsblk` 的列名段必须靠兜底条件挡掉，所以初始只出 2 层、展开才探测；
 - **新终端模式拿不到子进程返回码**：因此它只显示「已在终端启动」，不判成败，也不能停止。

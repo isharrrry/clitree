@@ -11,7 +11,7 @@ clitree/
 ├── core/      纯逻辑：解析、规则、控件推断、探测、懒加载、执行、落盘   ← 不 import Qt
 ├── ui/        Qt 界面；**只有 ui/qt.py 一个文件 import Qt**
 ├── rules/     default.rules.json（解析规则的唯一真相源）
-tests/         158 项测试（含 offscreen GUI 冒烟）
+tests/         165 项测试（含 offscreen GUI 冒烟）
 tools/         生成依赖树 / 生成界面截图的脚本
 cli/           每个工具的配置文件（缓存 ＋ 多个配置 ＋ 你的说明）
 ```

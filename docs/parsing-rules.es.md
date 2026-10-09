@@ -75,11 +75,17 @@ Puntos clave de las reglas (todos en la sección `optionBlock` de `clitree/rules
 
 - `joinContinuation: true` ＋ `continuationMinExtraIndent: 2`: las líneas con más sangría se unen al bloque
   anterior;
-- `nameToken`: `--[A-Za-z][\w-]*` o `-[A-Za-z][\w-]*` — **hay que admitir nombres largos con un solo guion**
-  (el `-pass-exit-codes` de GNU);
+- `nameToken`: `--[A-Za-z][\w-]*` o `-[A-Za-z0-9][\w-]*` — **hay que admitir nombres largos con un solo guion**
+  (el `-pass-exit-codes` de GNU) y también **opciones cortas numéricas** (los `-4`/`-6` del ping de
+  Windows, los `-0`…`-3` de curl);
 - `valueToken` exige estar **pegado al nombre del argumento**: `-c <count>` es un valor, mientras que el
   `SO_DEBUG` de `-d      use SO_DEBUG socket option` es solo una palabra de la descripción (se clasificó mal
   como valor y ya está corregido);
+- **El diseño de valores de Windows**: el nombre y el valor se separan por **exactamente un espacio** y el
+  valor va seguido de 2+ espacios o de «1 espacio ＋ una descripción que empieza por mayúscula o carácter
+  CJK» (`-n count       Number…`, `-c compartment Routing…`, `-c compartment 路由…`) — esto es lo que
+  convierte `-n` en un campo numérico en lugar de una casilla sin valor, y el comando construido queda
+  correcto; descripciones compactas como `-v verbose output` no cumplen la condición y no se tragan;
 - la forma `--[no-]color` se normaliza a `--color` y se marca como «triestado».
 
 Los títulos de sección usan **decisión estructural primero ＋ lista de palabras como respaldo**: los títulos son
@@ -111,6 +117,15 @@ un botón «Expandir todo» (límite de 3 niveles).
 Este criterio es fruto de una corrección: en `ping [options] <destination>` solo el argumento posicional cae en
 la posición obligatoria, y la implementación inicial trataba «el argumento no mencionado en el usage» como «sin
 marcar», con lo que los 32 argumentos de ping quedaban todos con `[未标注]`.
+
+**Los argumentos posicionales tienen dos formas** (ambas medidas): ① marcadores entre ángulos
+(`<destination>`, el chino `[<路径>]`, la convención POSIX); ② cuando la línea usage **no tiene ningún
+ángulo**, las **palabras simples** también cuentan (el `… [-4] [-6] target_name` del ping de Windows,
+el `[proxy_address] [port]` de nc, el `hostname` de mtr). La regla de palabras simples filtra el ruido
+medido: es mutuamente excluyente con los ángulos (el `clone` de `git clone … [<选项>]`), palabras
+idénticas al nombre del comando, palabras conectivas o `help` (el `or` de rsync, el
+`{ COMMAND | help }` de ip), marcadores de colección en mayúsculas (`OPTION` de `[OPTION...]`) y
+estructuras de valor anidadas entre corchetes (`[-D [bind_address:]port]` del usage de ssh).
 
 ## 7. Orden de inferencia de controles
 
@@ -164,7 +179,7 @@ python3 -m clitree --check-rules          # 坏 JSON / 坏正则立刻报出来�
 python3 -m clitree --parse ping
 python3 -m clitree --parse --help-file /tmp/some-tool--help.txt
 
-# 3) 跑回归（fixtures 是 27 条真机 help 文本）
+# 3) 跑回归（fixtures 是 29 条真机 help 文本）
 python3 -m pytest tests/test_parser_blocks.py tests/test_widgets.py -q
 ```
 

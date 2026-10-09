@@ -15,9 +15,33 @@ from .model import ParamSpec, ParseResult, Subcommand
 
 PLACEHOLDER_SKIP = {"options", "option", "flags", "选项"}
 
+# 全大写集合占位词（`[OPTION...]`、`[FLAGS]`）不是位置参数（GNU 惯例，tar 实测）
+_BIG_PLACEHOLDER_WORDS = {"option", "options", "flag", "flags", "arg", "args",
+                          "argument", "arguments", "param", "params",
+                          "parameter", "parameters", "value", "values"}
+
+# 连接词与 help 子命令词（rsync 的 `or`、ip 的 `{ COMMAND | help }` 实测）：不是位置参数
+_WORD_SKIP = {"or", "and", "help"}
+
 # usage 里「选项名 + 它的取值」片段：这些 `<path>` / `<name>=<value>` 不是位置参数
 _OPT_WITH_VALUE = re.compile(
     r"(?<![\w-])(--?[A-Za-z][\w-]*)(\s*[ =]\s*)?(<[^>]*>(=<[^>]*>)?|\[=[^\]]+\])?")
+
+# usage 里「选项名 + 紧跟的裸词取值」片段：`[-n count]`、`[-j host-list]` 的取值词。
+# 三条判定依据（全部来自 fixture 实测）：
+# ① 取值词与选项名**仅隔空白**——`[-4] [-6] target_name` 里 target_name 与 -6 之间
+#    隔着 `]`，归属不了任何选项，它必须是位置参数（Windows ping）；
+# ② 取值词后紧跟 `]`/`|`/行尾——`[-46AaCfGgKkMNnqsTtVvXxYy] destination [command ...]`
+#    的 destination 后面还有结构 ⇒ 是位置参数，绝不吞（ssh）；
+# ③ 取值词本身可带 `:` `|` `=`——`-E algo:secret`、`-Q in|out|inout`、`-E VAR=VAL`（tcpdump/strace）。
+_OPT_WITH_BARE_WORD = re.compile(
+    r"(?<![\w-])-{1,2}[A-Za-z0-9][\w-]*[ \t]+[-\w.+:/|=]+(?=[ \t]*[\]|]|[ \t]*$)")
+
+# usage 开头的程序名（`ping`、`/usr/bin/foo`、`g++`）：它不是位置参数
+_COMMAND_NAME = re.compile(r"^[ \t]*[\\/A-Za-z][\w.+-]*(?:[\\/][\w.+-]+)*")
+
+# usage 前缀（`Usage:` / `用法：` / `SYNOPSIS:`）——程序名剥除前先去掉前缀
+_USAGE_PREFIX = re.compile(r"(?i)^\s*(usage|用法|使用情况|synopsis)\s*[:：]?\s*")
 
 
 # ---------------------------------------------------------------- 基础工具
@@ -160,15 +184,27 @@ def _parse_option_block(block, rules: dict, cmd: str) -> ParamSpec | None:
         value_token = m.group(1)
         tail = tail[:m.start()] + " " + tail[m.end():]
     else:
-        m2 = re.match(r"\s*([A-Za-z][\w.-]*)\s*[:：]", tail)
-        if m2 and m2.group(1).lower() not in PLACEHOLDER_SKIP:
+        # Windows 布局实测（windows-ping.h.txt / windows-ping.zh.h.txt）：名字与取值
+        # **仅隔 1 个空格**，取值后是 2+ 空格或「1 空格 + 大写/中文开头的描述」
+        # （`-n count       Number...`、`-c compartment Routing...`、`-c compartment 路由...`）；
+        # 紧凑描述 `-v verbose output`（词后小写词）不满足 ⇒ 不被误吃，仍按开关处理。
+        mw = re.match(r"[ \t]([A-Za-z][\w-]{0,30})"
+                      r"(?=[ \t]{2,}|[ \t][A-Z]|[ \t][\u3000-\u303f\u4e00-\u9fff\uff01-\uff5e]|[ \t]*$)",
+                      tail)
+        if mw:
             takes_value = True
-            value_token = m2.group(1)
-            tail = tail[m2.end():]
-        elif re.search(r"=\S|\{[^}]*\}", tail):
-            takes_value = True
-            em = re.search(r"=\s*(\S+)", tail)
-            value_token = em.group(1) if em else None
+            value_token = mw.group(1)
+            tail = tail[:mw.start()] + " " + tail[mw.end():]
+        else:
+            m2 = re.match(r"\s*([A-Za-z][\w.-]*)\s*[:：]", tail)
+            if m2 and m2.group(1).lower() not in PLACEHOLDER_SKIP:
+                takes_value = True
+                value_token = m2.group(1)
+                tail = tail[m2.end():]
+            elif re.search(r"=\S|\{[^}]*\}", tail):
+                takes_value = True
+                em = re.search(r"=\s*(\S+)", tail)
+                value_token = em.group(1) if em else None
 
     desc = " ".join(x for x in [tail.strip().strip(":").strip()] + continuations if x).strip()
     spec = ParamSpec(names=names, takes_value=takes_value, desc=desc, value_token=value_token,
@@ -229,18 +265,48 @@ def _usage_line(text: str) -> str:
     return " ".join(parts)
 
 
-def _positionals(usage: str) -> list[ParamSpec]:
-    """位置参数 = usage 里**裸的** `<占位符>`（选项的取值不算）。
+def _bracket_pairs(s: str) -> list[tuple[int, int]]:
+    """所有配平的方括号对（供「嵌套组内的词不是位置参数」判定）。"""
+    stack, pairs = [], []
+    for i, ch in enumerate(s):
+        if ch == "[":
+            stack.append(i)
+        elif ch == "]" and stack:
+            pairs.append((stack.pop(), i))
+    return pairs
 
+
+def _positionals(usage: str) -> list[ParamSpec]:
+    """位置参数 = usage 里**裸的** `<占位符>`（选项的取值不算）；
+    整条 usage 没有尖括号组时，裸词也算（Windows ping 实测：
+    `Usage: ping [-t] ... [-4] [-6] target_name` ⇒ target_name 必填，
+    否则表单里没有地方填 ping 的目标地址）。
+
+    实测口径（全部来自 fixture）：
+    - 出现尖括号组时裸词一律不算（`dotnet build [<PROJECT | SOLUTION | FILE>...]`
+      里的 build 是子命令词，PROJECT 等是多选占位）；
+    - 连接词/help 子命令词不是位置参数（rsync 的 `or`、ip 的 `{ COMMAND | help }`）；
+    - 与命令名同形的词不是位置参数（`Usage: ip ... ip [ -force ]` 第二段开头的 ip）；
+    - 嵌在「内含方括号的方括号组」里的词不是位置参数（ssh 的 `[-D [bind_address:]port]`）。
     支持中文占位符（`用法：git clone [<选项>] [--] <仓库> [<路径>]` 实测），
-    并先剔掉 `-C <path>` / `-c <name>=<value>` 这类选项取值。
+    并先剔掉 `-C <path>` / `-c <name>=<value>` / `-n count` 这类选项取值。
     """
     out, idx = [], 0
     if not usage:
         return out
-    bare = _OPT_WITH_VALUE.sub(" ", usage)
-    required_part = re.sub(r"\[[^\]]*\]", " ", bare)
-    for m in re.finditer(r"<([^>\s]+)>", bare):
+    s = _USAGE_PREFIX.sub(" ", usage, count=1)      # 剥 "Usage:"/"用法：" 前缀
+    s = _OPT_WITH_BARE_WORD.sub(" ", s)             # 剥「选项 + 裸词取值」
+    s = _OPT_WITH_VALUE.sub(" ", s)                 # 剥「选项 + 尖括号取值」
+    cm = _COMMAND_NAME.match(s)                     # 程序名（剥除前先记下，供裸词去重）
+    cmd_words = set()
+    if cm:
+        nm = cm.group(0).strip().lower()
+        cmd_words = {nm, nm.replace("\\", "/").rsplit("/", 1)[-1]}
+    s = _COMMAND_NAME.sub(" ", s, count=1)
+
+    required_part = re.sub(r"\[[^\]]*\]", " ", s)
+    has_angle = bool(re.search(r"<[^>]*>", s))
+    for m in re.finditer(r"<([^>\s]+)>", s):
         name = m.group(1)
         if name.lower() in PLACEHOLDER_SKIP:
             continue
@@ -249,6 +315,28 @@ def _positionals(usage: str) -> list[ParamSpec]:
                              value_token=m.group(0), required=required, position=idx,
                              widget="text", widget_reason="位置参数：usage 行里出现，必按顺序传"))
         idx += 1
+
+    if not has_angle:
+        masked = re.sub(r"<[^>]*>", " ", s)
+        pairs = _bracket_pairs(masked)
+        seen = set()
+        for m in re.finditer(r"(?<![-\w.])[A-Za-z][\w-]*(?:\.[A-Za-z0-9_-]+)*", masked):
+            word = m.group(0)
+            low = word.lower()
+            if (low in seen or low in PLACEHOLDER_SKIP or low in _WORD_SKIP
+                    or low in cmd_words):
+                continue
+            if word.isascii() and word.isupper() and low in _BIG_PLACEHOLDER_WORDS:
+                continue
+            if any(a < m.start() < b and "[" in masked[a + 1:b] for a, b in pairs):
+                continue
+            seen.add(low)
+            depth = masked.count("[", 0, m.start()) - masked.count("]", 0, m.start())
+            required = "optional" if depth > 0 else "required"
+            out.append(ParamSpec(names=[], takes_value=True, desc=f"位置参数 {word}",
+                                 value_token=word, required=required, position=idx,
+                                 widget="text", widget_reason="位置参数：usage 行里出现，必按顺序传"))
+            idx += 1
     return out
 
 

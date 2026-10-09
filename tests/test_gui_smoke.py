@@ -143,7 +143,7 @@ def test_widget_override_persists(tmp_path, monkeypatch, qapp, fakecli):
 
     user_rules = tmp_path / "rules.user.json"
     monkeypatch.setattr(S, "user_rules_path", lambda: user_rules)
-    w = MainWindow(probe_fn=ProbeRecorder())
+    w = MainWindow(probe_fn=ProbeRecorder(), profile_root=tmp_path)
     try:
         w.load_command(fakecli)
         w.tree.select_node([])

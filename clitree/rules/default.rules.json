@@ -224,7 +224,7 @@
     "unit": "block",
     "joinContinuation": true,
     "continuationMinExtraIndent": 2,
-    "nameToken": "(?<![-\\w])(--[A-Za-z][\\w-]*|-[A-Za-z][\\w-]*)",
+    "nameToken": "(?<![-\\w])(--[A-Za-z][\\w-]*|-[A-Za-z0-9][\\w-]*)",
     "valueToken": "(<[^>]+>|\\[=[^\\]]+\\]|=\\{[^}]*\\}[^\\s]*|[A-Z][A-Z0-9_]{1,})",
     "separators": [
       "\\s{2,}",

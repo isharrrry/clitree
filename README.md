@@ -120,12 +120,12 @@ Like the README, the documentation comes in **English / Chinese / Spanish**. Ent
 ## Development
 
 ```bash
-python3 -m pytest -q                              # 158 tests
+python3 -m pytest -q                              # 165 tests (160 pass; 5 are platform-specific — see Known limitations)
 python3 tools/deps_tree.py                        # regenerate the dependency tree
 xvfb-run -a python3 tools/make_screenshots.py     # regenerate the 14 screenshots
 ```
 
-Measured on this machine: Python 3.10.12 + PyQt5 5.15.6; the tests run under
+Measured environments: Python 3.10.12 + PyQt5 5.15.6 (Linux) and Python 3.14.6 + PyQt5 5.15.11 (Windows); the tests run under
 `QT_QPA_PLATFORM=offscreen`. Development conventions and "what has not been verified" are in
 [contributing](docs/contributing.md).
 
@@ -133,8 +133,9 @@ Measured on this machine: Python 3.10.12 + PyQt5 5.15.6; the tests run under
 
 | Item | Reading |
 |---|---|
-| Tests | `python3 -m pytest -q` ⇒ **158 passed** (27 real help fixtures, widget inference, probe safety, lazy loading, executor, configuration files, GUI smoke) |
+| Tests | `python3 -m pytest -q` ⇒ **160 passed** (29 real help fixtures, widget inference, probe safety, lazy loading, executor, configuration files, GUI smoke; the other 5 are platform-specific — see [Known limitations](#known-limitations-listed-honestly)) |
 | Real CLI parsing | `ping` 33 parameters (`-c` numeric, `-M` dropdown `do/dont/want`, `-I` path, `-D` checkbox)｜`git` 22 subcommands｜`tar` 166 parameters｜`curl --help all` 244 parameters｜`gdb` through its interactive channel: **111 781 B** (its `--help` is only 3 071 B) |
+| Windows, measured locally (2026-10) | Windows 11 + Python 3.14.6 + PyQt5 5.15.11: `ping` parses to 18 parameters (bare-word positional `target_name` required, numeric `-4`/`-6`, `-n` as a number box); `ping -n 2 127.0.0.1` runs end-to-end ⇒ rc=0, replies received; both the English and the Chinese (`zh-CN`) help are covered by fixtures |
 | Lazy loading | `--tree git` ⇒ root parsed, all 22 subcommands `pending`; expanding the same node twice adds **0** extra probes |
 | Cache and profiles | A second window loading `ping` performs **0 probes** (straight from the cache); profile switching, save-as and both note levels are covered in [configuration](docs/configuration.md) |
 | Three modes | Background `ping -c 2 127.0.0.1` ⇒ **+6 log lines**, button `ok`; silent run of the same command ⇒ **+0 log lines**, button `ok`; clicking again during `ping -c 30` ⇒ state `stopped` |
@@ -142,12 +143,13 @@ Measured on this machine: Python 3.10.12 + PyQt5 5.15.6; the tests run under
 | Rules self-check | `python3 -m clitree --check-rules` ⇒ `RULES-CHECK=PASS` (12/12 regexes compile under Python) |
 | Screenshots | `xvfb-run -a python3 tools/make_screenshots.py` ⇒ **14 images** (both offscreen and real-X rendering were used) |
 
-Environment: Ubuntu 22.04, Python 3.10.12, PyQt5 5.15.6. **No row in this table is an estimate**; anything not measured is listed under [Known limitations](#known-limitations-listed-honestly) and in [contributing](docs/contributing.md).
+Environment: Ubuntu 22.04, Python 3.10.12, PyQt5 5.15.6 (Linux part), plus Windows 11, Python 3.14.6, PyQt5 5.15.11 (Windows part). **No row in this table is an estimate**; anything not measured is listed under [Known limitations](#known-limitations-listed-honestly) and in [contributing](docs/contributing.md).
 
 ## Known limitations (listed honestly)
 
-- **Windows / macOS are not verified on this machine**: the `/?` and `-?` channels, opening a terminal
-  via `cmd start` / `osascript`, and packaging exist only as code;
+- **Windows is only partially verified (2026-10), macOS not at all**: `ping` parsing/execution and the
+  local test suite have been exercised on Windows 11 (see the table above); the `-?` channel, opening a
+  terminal via `cmd start`, and packaging are still code-only;
 - **Most enum values cannot be extracted**: out of 105 real commands, only `ping` spells a value set
   out in its help (two places) — so dropdowns are always editable and no candidates are invented;
 - **Subcommand-section extraction is unreliable**: `pnpm`'s 91 entries are real, while `lsblk`'s column

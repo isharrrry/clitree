@@ -14,7 +14,7 @@
 
 ```bash
 python3 -c "import PyQt5" || python3 -m pip install --user PyQt5
-python3 -m pytest -q                 # 158 项
+python3 -m pytest -q                 # 165 项（160 通过；5 项平台差异项）
 ```
 
 **不要建 venv**（本机实测：`python3 -m ensurepip` 不存在 ⇒ venv 里没有 pip，
@@ -32,7 +32,7 @@ python3 -m pytest -q                 # 158 项
 | 文件 | 覆盖 |
 |---|---|
 | `tests/test_rules.py` | 规则加载、深合并用户覆盖、坏 JSON/坏正则能报出来 |
-| `tests/test_parser_blocks.py` | 块模型、四种方言、必填口径、27 条 fixture 逐条解析 |
+| `tests/test_parser_blocks.py` | 块模型、四种方言、必填口径、29 条 fixture 逐条解析 |
 | `tests/test_parser_subcommands.py` | 子命令段（含 `lsblk` 列名假阳、`git help -a` 真值） |
 | `tests/test_widgets.py` | 控件推断顺序、每条例外（`--[no-]`、可重复、`curl -b` 不得判成枚举） |
 | `tests/test_discovery.py` | 通道顺序、rc 不可信、危险命令被拒、man 页回退、交互式通道 |
@@ -41,8 +41,8 @@ python3 -m pytest -q                 # 158 项
 | `tests/test_profiles.py` | `cli/<工具>.json` 的缓存、多配置、说明两层、回退、坏文件 |
 | `tests/test_gui_smoke.py` | offscreen 建窗、加载/展开、控件类型、说明双击、配置切换、停止 |
 
-`tests/fixtures/help/*.txt` 是 **27 条真机 help 原文**（含中文、man 页、argparse、
-两行块、GNU 长选项等形态）；`tests/fixtures/fakecli.py` 是可控假 CLI（能指定返回码、往 stderr 写、
+`tests/fixtures/help/*.txt` 是 **29 条真机 help 原文**（含中文、man 页、argparse、
+两行块、GNU 长选项、Windows 中英文两版 ping 等形态）；`tests/fixtures/fakecli.py` 是可控假 CLI（能指定返回码、往 stderr 写、
 长睡眠），执行器与 GUI 测试都用它，**绝不用真命令做破坏性验证**。
 
 ## 改解析规则
@@ -87,7 +87,7 @@ python3 -m pytest -q                 # 158 项
 
 写在这里是为了不让别人误以为它们已经成立：
 
-- **Windows / macOS**：`/?`、`-?` 通道、`cmd start` / `osascript` 开终端、PyInstaller 打包 —— 只有代码就位，**未实测**；
+- **Windows / macOS**：`ping` 的解析与执行、测试套件已在 Windows 11 上跑过（2026-10，见 README 验证表）；`-?` 通道、`cmd start` / `osascript` 开终端、PyInstaller 打包仍未实测；
 - **新终端模式是否真的弹出窗口**：本机无图形环境，只能读到按钮 `launched`；
 - **打包**：没有做过 PyInstaller 打包验证；
 - **中文以外的 locale 长期稳定性**：只测过当前机器的 locale 与 `LC_ALL=C` 的切换效果。

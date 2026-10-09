@@ -39,10 +39,13 @@ def _parse(args) -> int:
         res = parser.parse_help(probe.raw_text, rules, cmd=args.command)
         print("PROBE=OK channel=%s rc=%s grade=%s" % (" ".join(probe.channel), probe.rc, probe.grade))
     print("DIALECT=%s GRADE=%s" % (res.dialect, res.grade))
-    print("PARAMS=%d SUBCOMMANDS=%d" % (len(res.options), len(res.subcommands)))
+    print("PARAMS=%d POSITIONALS=%d SUBCOMMANDS=%d"
+          % (len(res.options), len(res.positionals), len(res.subcommands)))
     if not args.tree:
         for o in res.options:
             print("  %-28s %-9s %s" % (o.label, o.widget, (o.desc or "")[:60]))
+        for p in res.positionals:
+            print("  %-28s %-9s %s" % (p.value_token or p.label, p.widget, (p.desc or "")[:60]))
         for s in res.subcommands:
             print("  %-28s %s" % (s.name, s.desc[:50]))
         return 0
